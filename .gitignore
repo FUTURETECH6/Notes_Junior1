@@ -1,0 +1,8 @@
+.DS_Store
+*.pdf
+bin
+*.exe
+*.out
+*.o
+.vscode
+*.zip
