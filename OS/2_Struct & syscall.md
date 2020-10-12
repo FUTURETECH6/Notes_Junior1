@@ -8,11 +8,11 @@
 
 Like, `open()`, `read()`, etc
 
+<img src="assets/image-20200928193502155.png" style="zoom:33%;" />
 
+C的`printf`调用API的`write`去进行系统调用：
 
 <img src="assets/image-20200921152451033.png" style="zoom: 33%;" />
-
-C的`printf`调用API的`write`去进行系统调用
 
 **Parameter Passing**
 
@@ -49,9 +49,11 @@ df, free,
 
 # Linker & Loader
 
+![](assets/image-20200928140816209.png)
+
 linker for combining .o and .a to .out
 
-loader for combing .lib and .out
+loader for combing .lib and .out, then load to memory
 
 * Static library: .a in linux, .lib in windows
 * Dynamic library: .so in linux, .dll in windows
@@ -76,13 +78,13 @@ Memory：
 
 ### Dynamic linking
 
-<img src="assets/image-20200924142206173.png" style="zoom:50%;" />：
+<img src="assets/image-20200924142206173.png"  />：
 
 After dynamic linking：
 
-<img src="assets/image-20200924142536002.png" style="zoom:50%;" />
+<img src="assets/image-20200924142536002.png"  />
 
-调用printf：跳到488，设定dll的printf的program counter位置
+调用printf：跳到488，设定dll的printf的program counter位置(\<printf@plt\>)
 
 ### Loader
 
@@ -107,53 +109,36 @@ When loading a binary
 
 1. 查表
 2. 获得dll中位置
-3. 把dll中位置写道\<printf@plt\>处
+3. 把dll中位置写到\<printf@plt\>处
 
 
 
-# OS
+# OS Structure
 
 ## Type
 
 Many structures:
 
 * simple structure - MS-DOS
-
     * 没有隔离：因为资源有限，PC使用人群都是技术人员不会乱搞
-
 * more complex -- UNIX / GNU/Linux
-
-    * 整体内核
-
+    * 整体内核<br />
         <img src="assets/image-20200924144808161.png" style="zoom:33%;" />
-
     * 内核提供资源管理，控制等等，可以跑sys program
-
     * 缺点：有逻辑分层但是却混杂在一起因此难以管控
-
     * 但是快
-
 * layered structure - an abstraction
-
     * 层次内核
-
 * microkernel system structure - L4
-
     * 将尽可能多的东西从内核态放到用户态
-
     * 优点：隔离，用户态的东西挂了不会影响到内核
-
-    * 缺点：本来可以通过function call的事情变成了通过进程调用（需要通过内核的消息传递）才能实现
-
-        * 如下：
-
-            ![](assets/image-20200924145838181.png)
-
+    * 缺点：本来可以通过function call的事情变成了通过进程调用（需要通过内核的消息传递，**inter-process communication(IPC)**）才能实现
+        * 如下：<br />![](assets/image-20200924145838181.png)
+    * new trend
+    * 
 * hybrid: Mach, Minix
-
 * exokernel
-
-    * 内核很小，用户层高权限
+    * 内核很小，用户层有高权限
 
 扩展性：微内核强，整体内核弱（通过提供内核模块来增强）
 
@@ -172,7 +157,7 @@ Tools include
 
 # System Call
 
-fork：返回值为负fork失败，为0为子进程，为正为父进程
+fork：返回值为负fork失败，为0为子进程，为正为父进程，子进程会继承父进程的内存空间，堆是否会继承>？会继承，VA和PA都一样(显式拷贝)，但是如果子或父对malloc的东西进行了修改则OS才会进行深拷贝(==COW==)
 
 fork+wait：等待父/子结束之后再执行
 
@@ -182,11 +167,23 @@ fork+wait+exec*：
 myargs[0] = strdup("wc");
 myargs[1] = strdup("p3.c");
 myarsg[2] = NULL;
-execvp(myargs[0], myargs)
+execvp(myargs[0], myargs);
 ```
+
+`execvp`参数：可执行文件的路径；将可执行文件加载到当前内存
 
 重定向：要先打开文件得到文件描述符（stdout是1）
 
 
 
+Linux将exec和fork分开，因此可以在fork后exec前做其他事情，例如管道重定向中时，在fork之后将stdout(文件描述符为1)关闭，将另一个文件的设为1
+
+文件描述符fd：open()的返回值，012分别是stdin stdout stderr
+
+
+
 ptrace
+
+## gdb
+
+断点`(gdb) br *addr`: 通过加special inst（硬件提供指令的实现，直接执行）或undefined encoding（软中断-->中断向量-->操作系统-->gdb）实现

@@ -32,3 +32,16 @@ Demosaicking
 
 HighDynamicRange
 
+---
+
+**Approach**
+
+
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4031072/
+
+https://www.ncbi.nlm.nih.gov/core/lw/2.0/html/tileshop_pmc/tileshop_pmc_inline.html?title=Click%20on%20image%20to%20zoom&p=PMC3&id=4031072_pone.0095330.g001.jpg
+
+http://www.truetex.com/micad.htm
+
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0096906

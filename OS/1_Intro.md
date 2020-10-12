@@ -92,8 +92,8 @@ Dual-mode
 
 
 
-•    mechanism: how to do it
-•    policy: what/which will be done
+* mechanism: how to do it
+* policy: what/which will be done
 
 
 
