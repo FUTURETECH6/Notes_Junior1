@@ -88,11 +88,14 @@ general-purpose register architecture
 
 * 大小端
 * 是否对齐
-* 
 
 ### Addressing Modes
 
+* const
+* reg
+* memory location
 
+![](assets/image-20201013141828209.png)
 
 ## Operate Operands
 
@@ -105,9 +108,16 @@ general-purpose register architecture
 * PC-relative addr
 * Dynamic addr
 
+### Branch
+
+Conditional Branch
+
+![](assets/image-20201013142549112.png)
+
 ## How do hardware understand instructions?
 
 ### Compiler Opt
 
+# RISC
 
-
+信息源熵：$\Large H = -\sum p_i\log p_i$

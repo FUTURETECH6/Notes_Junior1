@@ -39,7 +39,7 @@ Given a bit rate b bits/sec,
 
 
 
-> Denotation: B: data rate (bits/s), S: symbol rate (symbol/s),
+> Denotation: B: data rate (bits/s), S: symbol rate (symbol/s), H: bandwidth (Hz)
 
 **Nyquist** (no noise)
 
@@ -55,7 +55,7 @@ Max data rate = H•log~2~(1+S/N) bps
 dB = 10•lg(S/N)（10的信噪比为10dB，100的信噪比为20dB）
 where S/N is the signal to noise ratio(信噪比, 也可直接用xx dB来表示，S是信号功率，N是噪声功率)
 
-# Guided Trans Media(有线)
+# Guided Trans Media (有线)
 
 **Magnetic media (磁介质)**
 
@@ -64,6 +64,13 @@ where S/N is the signal to noise ratio(信噪比, 也可直接用xx dB来表示�
 **Twisted pair (双绞线)**
 
 UTP是没有屏蔽层的
+
+* Twisted pairs: analog or digital signals.
+* Full-Duplex, Half-Duplex, Simplex
+* Types
+    * Category 5 (100Mbps, 1Gbps)
+    * Category 6 (10Gbps)
+    * Category 7 (Shielded Twisted Pair)
 
 **Coaxial cable (同轴电缆)**
 
@@ -113,7 +120,7 @@ Free frequencies:
 ![](assets/image-20200929102028145.png)
 
 * NRZ：容易失去同步（时钟漂移，100还是101个）；B bps的比特率至少要B/2 Hz的带宽（Nyquist，V=2）
-* Manchester：clk xor bitstream= 数据，解决了漂移的问题，但是f更高，需要两倍于NRZ的带宽
+* Manchester：clk xor bitstream= 数据，解决了漂移的问题，但是f更高，需要两倍于NRZ的带宽（但是和data rate一样）
 * NRZI：bitS为1，NRZI变，bitS为0，NRZI变，解决了连续1的问题，连续0仍不行
 * 4B/5B：将4个bit映射成5个bit的，保证结果不含有超过4个连续的0
 * 
@@ -142,9 +149,9 @@ Free frequencies:
 
 <img src="assets/image-20201005154708301.png"  />
 
-* a: QPSK
-* b: QAM16 (Quadrature Amplitude Modulation): V=4
-* c: QAM64: V=6
+* a: QPSK: bits/symbol=logV=2
+* b: QAM16 (Quadrature Amplitude Modulation): bits/symbol=logV= 4
+* c: QAM64: bits/symbol=V=6
 
 **分配方式**
 

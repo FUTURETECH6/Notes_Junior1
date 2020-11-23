@@ -30,7 +30,7 @@ Cache
 * 内存虚拟化，每个进程都认为自己完整地拥有所有的内存空间
 * Cache是通过物理地址进行索引(才能唯一确定)，但是现代CPU都不用PA了，因为从VA到PA需要花时间。同时用VA从Cache拿，然后从MMU获取PA进行对比，如下面的上图<br /><img src="assets/cache_mmu.jpg" style="zoom: 25%;" />
 
-
+**CMT** (Chip Multithreading)
 
 多核和超线程
 
@@ -38,7 +38,7 @@ Cache
 
 
 
-NUMA
+**NUMA**
 
 ```mermaid
 graph LR
@@ -61,6 +61,10 @@ c1-.-c2
 c1-.-c3
 c2-.-c3
 ```
+
+CPU之间有高速总线连接，
+
+
 
 特殊的嵌入式操作系统：SSD里防止频繁擦除某一块导致的OS，网卡上用于硬件提速的OS
 

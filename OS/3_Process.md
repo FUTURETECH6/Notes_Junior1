@@ -36,7 +36,7 @@ running --"exit"-->terminated
 
 For single-core CPU, <img src="assets/image-20200928150942308.png" style="zoom:67%;" />
 
-**PCB: Process Control Block**
+### PCB: Process Control Block
 
 * In the kernel, ==each== process is associated with a PCB, which is a struct
     * process number (pid)

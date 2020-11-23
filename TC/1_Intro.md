@@ -174,13 +174,22 @@ $$
 > $$
 > R_{a}=\{b: b \in A \wedge(a, b) \in R\}
 > $$
-> Then $D$ is distinct from each $R_{x}$（目的就是要构造与$R_x$不同的）
+> <u>Then $D$ is distinct from each $R_{x}$（目的就是要构造与$R_x$不同的）</u>
 >
->**Example**: Let us consider the relation
+> **Example**: Let us consider the relation
 >
->$R=\{(a, b),(a, d),(b, b), (b, c),(c, c),(d, b),(d, c),(d, e),(d, f),\\(e, e),(e, f),(f, a),(f, c)， (f, d),(f, e)\}$
+> $R=\{(a, b),(a, d),(b, b), (b, c),(c, c),(d, b),(d, c),(d, e),(d, f),\\(e, e),(e, f),(f, a),(f, c)， (f, d),(f, e)\}$
 >
->Notice that:
+> |      |  a   |  b   |  c   |  d   |  e   |  f   |
+> | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+> |  a   |  D   |  X   |      |  X   |      |      |
+> |  b   |      |  X   |  X   |      |      |      |
+> |  c   |      |      |  X   |      |      |      |
+> |  d   |      |  X   |  X   |  D   |  X   |  X   |
+> |  e   |      |      |      |      |  X   |  X   |
+> |  f   |  X   |      |  X   |  X   |  X   |  D   |
+>
+> Notice that:
 > $$
 > \begin{array}{ll}
 > R_{a}=\{b, d\}, & R_{b}=\{b, c\},\\
@@ -199,9 +208,9 @@ $$
 
 
 
-**Theorem2**. (0, 1)/[0, 1]为不可数集
+**Theorem.2** (0, 1)/[0, 1]为不可数集
 
-
+[如何证明（0，1）不是可数集？ - 王飞的回答 - 知乎](https://www.zhihu.com/question/423811932/answer/1503396541)
 
 # Closure
 
@@ -236,8 +245,6 @@ e.g. Symmetric, transitive closure of "Parent-Of" is:
 
 
 # Alphabet & Language
-
-==$\emptyset \ne \{e\}, \emptyset^* = \{e\}$==
 
 **Alphabet**: finite set of symbols
 
@@ -321,7 +328,7 @@ $L_{1} L_{2}=\left\{w \in\{0,1\}^{*}: w\right.$ has an odd number of 0 's $\}$
 
 **Kleene Star**
 
-所有长度为1到∞的串联
+所有长度为0到∞的串联
 
 $$
 \begin{aligned}
@@ -339,9 +346,8 @@ Hint: $L_{1} \subseteq L_{2} \Rightarrow L_{1}^{*} \subseteq L_{2}^{*} \quad\{0,
 
 **==Remark==**:
 
-1) The use of $\sum^{*}$ to denote th set of all strings over $\Sigma$
-is consistent with the notation for the Kleene star of $\sum$.
-2) $\emptyset^{*}=\{e\}$
+1) The use of $\sum^{*}$ to denote th set of all strings over $\sum$ is consistent with the notation for the Kleene star of $\sum$.
+2) ==$\emptyset \ne \{e\}, \emptyset^* = \{e\}$==
 3) $L^{+}=L L^{*}$
 4) For any language $L,\left(L^{*}\right)^{*}=L^{*} ; L \emptyset=\emptyset L=\emptyset$
 
@@ -363,14 +369,9 @@ is consistent with the notation for the Kleene star of $\sum$.
 > 1) $\Theta$ and $\{x\}\left(\forall x \in \sum\right.$ ) is a regular expression.
 > 2) If $\alpha$ and $\beta$ are regular expressions, then so are $(\alpha \beta)$, $(\alpha \cup \beta), \alpha^{\star}$
 > 3) Nothing is regular expression unless it follows from 1 ) through 2 ).
-> Example: $a^{*} b^{*} \quad a^{*} \cup b^{*}$
-> $$
-> a\left(a^{*} \cup b^{*}\right)
-> $$
-> $$
-> \left(a^{*} \cup b^{*}\right) a\left(a^{*} \cup b^{*}\right)
-> $$
-> aaaaa*
+> Example: $a^{*} b^{*}, a^{*} \cup b^{*}, a(a^{*} \cup b^{*}), (a^{*} \cup b^{*}) a(a^{*} \cup b^{*}), aaaaa^*$
+>
+> 定义：包括空集$\empty$和单元集${a}$在union、concatenation和Kleene star下封闭的最小语言类
 
 **Example** Let $L=\left\{w \in\{0,1\}^{*}: w\right.$ has two or three occurrences of $1,$ the first and second of which are not consecutive $\}$.
 
@@ -383,7 +384,7 @@ $$
 * The language can be written simply as $0^{*} 10^{*} 010^{*}\left(10^{*} \cup \emptyset^{*}\right)$
     *  $a^*\cup b^*$表示要么全是a要么全是b
 
-#### &
+### $\mathscr{L}$
 
 The function $\mathscr{L}$ is defined as follows.
 1) $\mathscr{L}(\Theta)=\emptyset,$ and $\mathscr{L}(a)=\{a\}$ for each $a \in \Sigma$.
