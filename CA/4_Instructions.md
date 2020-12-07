@@ -6,13 +6,22 @@
 
 ## ISA Classes
 
-### By internal storage
+**By internal storage**
 
 这里的internal storage指的是处理器里面从内存/缓存存取的数据
 
 * stack
 * accumulator
 * reg
+
+For `C=A+B`
+
+| Stack  | Accumulator | Reg-Mem       | Load-Store     |
+| ------ | ----------- | ------------- | -------------- |
+| push A | load A      | load r1, A    | load r1, A     |
+| push B | add B       | add r2, r1, B | load r2, B     |
+| add    | store C     | store r2, C   | add r3, r1, r2 |
+| pop C  |             |               | store r3, C    |
 
 ### stack architecture
 
@@ -52,7 +61,7 @@ general-purpose register architecture
 
 
 
-#### Two Classes
+#### Two Classes(reg-mem & ld-sd)
 
 * register-memory architecture
     * any instruction can access memory
@@ -105,8 +114,10 @@ general-purpose register architecture
 
 ### Addressing
 
-* PC-relative addr
-* Dynamic addr
+![](assets/image-20201128165753779.png)
+
+* PC-relative addr: branch
+* Dynamic addr: ?
 
 ### Branch
 

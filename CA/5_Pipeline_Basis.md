@@ -188,14 +188,14 @@ sub $2, $6, $14
     * ```assembly
           div $2, $0, $4
         sub $2, $6, $14
-        ```
+      ```
 
 sol
 
 * [forwarding](https://en.wikipedia.org/wiki/Operand_forwarding)(bypassing)
     * directly feed back EX/MEM&MEM/WB pipeline regs’ results to the ALU inputs
 * bubble(stall)
-    * 并不是所有data hazard都可以通过forwarding解决，例如`lw r1, 0(r2); sub r4, r1, r5`在lw在第四个周期结束才能得到r4，而sub在第三个周期（？第二个周期就有regA=Regs[rs]的操作了）开始就要用到
+    * ==并不是所有data hazard都可以通过forwarding解决，例如`lw r1, 0(r2); sub r4, r1, r5`在lw在第四个周期结束才能得到r4，而sub在第三个周期开始就要用到==
 
 ### 控制Control冒险
 
@@ -228,6 +228,7 @@ sol
 * 在知道确切的是否分支之前，不能改变处理器状态；如果是taken的，则还必须undo对处理器状态的修改
     * Untaken: <img src="assets/image-20201102101334987.png" style="zoom:50%;" />
     * Taken: <img src="assets/image-20201102101349568.png" style="zoom:50%;" />
+* ==为什么没有predicted-taken：要ID结束之后才能算出地址，所以还不如延时槽==
 
 
 

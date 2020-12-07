@@ -104,10 +104,6 @@ Brief description, 忽略了寄存器和控制信号的流水化
 ![](assets/image-20201111102652119.png)
 ![](assets/image-20201111102700055.png)
 
-
-
-
-
 # MIPS Ctrl
 
 Issue：发射，将指令从ID移入EX的过程，用以控制流水线的阻塞

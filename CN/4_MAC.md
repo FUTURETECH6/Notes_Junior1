@@ -39,7 +39,7 @@ in LANs and MANs
 
 # Multiple access protocols
 
-### ALOHA
+## ALOHA
 
 Let users transmit whenever they have data to be sent. (想发就发，当数据量越大时，占用的信道资源越多，)
 
@@ -47,7 +47,7 @@ Let users transmit whenever they have data to be sent. (想发就发，当数据
     * 用重传等机制来解决丢包的问题
 * The sender just waits a random amount of time and sends it again if a frame is destroyed.
 
-#### Efficiency
+### Efficiency
 
 泊松分布
 
@@ -60,18 +60,28 @@ Concepts:
 * Offered load: G (Poisson mean) transmission attempts per frame time. G includes retransmissions.
     * At low loads: G≈N
     * At high loads: G>N
-* Throughput S = GP~0~ where P~0~ is the probability that a frame does not suffer a collision.
+* Throughput(flow capacity) S = GP~0~ where P~0~ is the probability that a frame does not suffer a collision.
 
 原泊松分布：$P(X=k)=\frac{\lambda^{k}}{k !} e^{-\lambda}, k=0,1, \cdots$
 
 * 带入Poisson mean = $G$：$P(X=k)=\frac{G^{k}e^{-G}}{k !} , k=0,1, \cdots$
 * The average amount of transmission-attempts for 2 consecutive frame-times is 2*G*. Hence, for any pair of consecutive frame-times, the probability of there being *k* transmission-attempts during those two frame-times is: $\frac{(2G)^{k}e^{-2G}}{k !}$
 * 对分布从$P_0 = e^{-2G}$
-* $S = G e^{-2G}$
+* Throughput $S = G e^{-2G}$
+    * ==G=0.5时，S~max~ = 1/(2e) ≈ 0.184==
 
 附[公式推导](https://en.wikipedia.org/wiki/ALOHAnet#ALOHA_protocol)
 
-### CSMA without CD
+计算题看作业4.1
+
+### Slotted ALOHA
+
+* <u>Time is slotted. A computer is not permitted to send at any time. Instead it is required to wait for the beginning of the next slot.</u>
+* The vulnerable period is halved for Slotted ALOHA.
+
+![](assets/image-20201123214726870.png)
+
+## CSMA without CD
 
 Carrier Sense Multiple Access, collision detection
 
@@ -79,26 +89,26 @@ Carrier Sense Multiple Access, collision detection
 
 。。。
 
-#### persistent
+### persistent
 
 坚持：一直等到idle然后马上发 (possibility is 1, 1-persistent)
 
 问题：如果两个站都在等空闲，一空闲了就都发，还是冲突了（所以其实应该先等一会
 
-#### nonpersistent
+### nonpersistent
 
 * Before sending, a station senses the channel.
     * If the channel is idle, the station transmits a frame.
     * If the channel is in use, the station does not continually sense it. Instead, it waits a random period of time and then repeats the algorithm. (可以避免一空闲就发的情况，但是也增大了延时)
     * If a collision occurs, the station waits a random amount of time and starts all over again.
 
-#### p-persistent
+### p-persistent
 
 如果检测到信道空，有p的概率发送，有1-p的概率不发。
 
 一般p较小（如0.1、0.01），所以延迟很高
 
-### CSMA/CD
+## CSMA/CD
 
 How long will it take to detect collisions?
 
@@ -106,9 +116,9 @@ How long will it take to detect collisions?
 * The time for transmitting from one end to the other end of the cable?
 * In the worst case, a station cannot be sure that it has seized the channel until it has transmitted for 2τ without hearing a collision. Here τ is the time for a signal to propagate between the two farthest stations. 
 
-### Collision free protocol
+## Collision free protocol
 
-#### bitmap
+### bitmap
 
 一个竞争期包含N个槽，每经过i号站，如果i号站有东西要发，他就会把i号槽置1。这样最后大家都知道谁要发东西，只要按数字顺序依次开始传送即可。
 
@@ -118,7 +128,7 @@ How long will it take to detect collisions?
 * 所有站都有数据要发：平均信道利用率为d/(N/N+d)=d/(1+d)
     * 等待时间为：(N-1)(d+1)+1 = (N-1)d+N
 
-#### 802.5 token ring
+### 802.5 token ring
 
 将所有站连成一个单环（仅拓扑结构，物理结构无需）。令牌在上面单向传输，数据帧在上面与令牌同向传输（如果没人取下来，会被发送站取下，防止无限循环）。
 
@@ -127,7 +137,7 @@ How long will it take to detect collisions?
 * 全部有数据发：(N-1)d+N
 * 都没数据发：N
 
-#### binary countdown
+### binary countdown
 
 从高位开始竞争，例如对于0010, 0100, 1001, 1010，最高位的OR为1，所有0010和0100知道由高位为1的，于是退出竞争；剩下两个第二高位OR为0，两个都继续竞争；到了第三位OR为1，1001退出竞争，所以最高的1010赢得竞争，可以传输一帧。然后进入下一轮。
 
@@ -135,15 +145,31 @@ How long will it take to detect collisions?
 
 什么叫发送方的地址正好是帧内的第一个字段？？
 
-### Limited-Contention protocols
+## Limited-Contention protocols
 
 有限竞争协议，由于发现当站点数目较小时，p-persistent的成功率较高，获得信道的概率会增加，因此可以将站点分组。
 
 关键在于如何将站分配到各个时间槽中
 
-#### Adaptive Tree Walk Protocol
+### Adaptive Tree Walk Protocol
 
 大概思路：检查N个站有没有人要发数据，有的话分为两组，分别检测，递归
+
+* the stations as the leaves of a binary tree
+* In slot 0 , all stations are permitted to try to acquire the
+* If one of them does so, fine.
+* If there is a collision , then during slot 1 only those stations falling under node 2 in the tree may compete.
+* If one of them acquires the channel, the slot following the frame is reserved for stations under node 3.
+* If there is collision under node 2 for slot 1, stations under node 4 may compete during slot 2.
+
+<img src="assets/image-20201123215857958.png" style="zoom: 67%;" />
+
+Adaptive Tree Walk Protocol
+
+* At what level in the tree should the search begin?
+* The heavier the load, the farther down the tree the search should begin.
+* Begin at 𝑖 log~2~𝑞where q is the estimate of the number of ready stations.
+* Numerous improvements to the basic algorithm have been discovered (Bersekas and Gallager, 1992)
 
 # 802.3: Ethernet
 
@@ -239,7 +265,23 @@ T/L <= 0x600 (1536): length; otherwise, type
 
 # 802.11: Wireless LANs
 
+## The 802.11 Architecture and Protocol Stack
 
+
+
+## The 802.11 Physical Layer
+
+
+
+## The 802.11 MAC Sublayer Protocol
+
+DCF (Distributed Coordination Function, 分布协调功能): CSMA/CA (CSMA with Collision Avoidance)
+
+PCF (Point Coordination Function, 集中协调功能): the access point controls all activity in its cell, just like a cellular base station (not used in practice)
+
+## The 802.11 Frame Structure
+
+## Services
 
 # Data link layer switching
 
@@ -271,6 +313,8 @@ Why bridges are used?
         →Forward the frame.
     * If the destination LAN is unknown,
         →Use flooding.
+
+![](../../CN/HW/assets/image-20201123211737381.png)
 
 ## Spanning Tree Bridges
 

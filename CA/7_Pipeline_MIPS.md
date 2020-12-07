@@ -246,3 +246,20 @@ ADD.D F6, F8, F2
 
 ROB(Reorder Buffer)用于存储已完成但尚未提交的指令
 
+# M&S
+
+## Meltdown
+
+[熔断 (安全漏洞) - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E7%86%94%E6%AF%81_(%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E))
+
+* Presiquete
+    * 乱序
+    * 安全检查是在指令结束后进行
+* 因此在CPU对某条指令进行安全检查前，一部分在该指令后面的指令会被提前执行
+* 检查出问题的只会rollback CPU(包括regs)的状态，并不会恢复CPU cache的状态
+* 攻击者通过遍历CPU cache，找出载入时间远小于其他的数据的地址
+
+## Spectre
+
+* 分支预测
+* 预测错误后只会rollback CPU，不会rollback CPU cache

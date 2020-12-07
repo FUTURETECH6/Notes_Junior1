@@ -47,7 +47,7 @@ $\text{Module availability} = \frac{\text{MTTF}}{\text{MTTF}+\text{MTTR}}$，单
 
 > Assume a disk subsystem with the following components and MTTF:
 >
-> * 10 disks, each read at 106-hour MTTF;
+> * 10 disks, each read at 10^6^-hour MTTF;
 > * 1 ATA controller, 500,000-hour MTTF;
 > * 1 power supply, 200,000-hour MTTF;
 > * 1 fan, 200,000-hour MTTF; 
@@ -82,6 +82,26 @@ $$
 $$
 
 从概率的角度来说单个硬盘失效是小概率事件(8760/10^6^)，因此不考虑换掉一个之后再坏掉的情况
+
+**Ex.3** 使用备用电源电源
+
+中文课本实际第45页
+
+> 添加条件：$\text{MTTR}_\text{power} = 24\text{ hours}$
+
+$$
+{
+    \begin{array}{}
+        \text{MTTF}_\text{pair} & = \frac{\text{MTTF}_\text{power}/2}{\text{MTTR}_\text{power}/\text{MTTF}_\text{power}} = \frac{\text{MTTF}_\text{power}^2}{2 \times \text{MTTR}_\text{power}} 
+        \\
+        &= \frac{200,000^2}{2\times24} = 833,333,333\text{ hours}
+        \\
+        \text { MTTF }_{\text {sys}} & = \frac{1}{\frac{23}{1,000,000} - \frac{1}{200,000} + \frac{48}{200,000^2}} = 55,551\text{ hours}
+    \end{array}
+}
+$$
+
+
 
 # Measure Performance
 
@@ -126,7 +146,7 @@ $\large S_{\text {latency }}(s)=\frac{1}{(1-p)+\frac{p}{s}}$
 
 $\left\{\begin{array}{l}S_{\text {latency }}(s) \leq \frac{1}{1-p} \\ \lim _{s \rightarrow \infty} S_{\text {latency }}(s)=\frac{1}{1-p}\end{array}\right.$
 
-👆speedup是指加速的倍速，没有单位
+👆speedup是指加速的倍速，没有单位 ==新的/旧的 而不是 新的/旧的-1==
 
 
 

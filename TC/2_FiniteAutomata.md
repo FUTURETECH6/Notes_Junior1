@@ -67,7 +67,7 @@ $L_1 = \{w \in \{a, b\}^*: w\text{ does not contain three consecutive }b\text{'s
 
 <img src="assets/image-20201024163948638.png" style="zoom:50%;" />
 
-👆q3被称为停滞状态，称到达状态q3的M被俘获了。
+👆q3被称为停滞状态，称到达状态q3的M被俘获了。==被俘获的不会结束，所以不会被DFA接受==
 
 $L_2 = \{w \in \{a, b\}^*: w\text{ contains three consecutive }b\text{'s}\}.$
 
@@ -326,3 +326,4 @@ Which  of  the  following  are  necessarily  regular?
 
 $\displaystyle \color{red}{ \bigcup_{i=0}^{\infty} L_{i}=\overline{\bigcap_{i=0}^{\infty} \overline{L_{i}}}}$
 
+==e^*^和Φ^*^有什么区别==

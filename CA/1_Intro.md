@@ -22,6 +22,10 @@ shared mem/cache：并行更新的问题
 
 $S_{\text {latency }}(s)=\frac{1}{(1-p)+\frac{p}{s}}$
 
+* *S*~latency~ is the theoretical speedup of the execution of the whole task;
+* *s* is the number of threads across which the parallel portion is split;
+* *p* is the proportion of execution time that the part benefiting from improved resources originally occupied.
+
 $\left\{\begin{array}{l}S_{\text {latency }}(s) \leq \frac{1}{1-p} \\ \lim _{s \rightarrow \infty} S_{\text {latency }}(s)=\frac{1}{1-p}\end{array}\right.$
 
 
