@@ -298,12 +298,22 @@ lw r3, 0(r0)	# cache miss, read from mem, but r1 still in write_buf, ERROR
 
 
 
-![](assets/image-20201207112253484.png)
+![](assets/image-20201221100713616.png)
+
+勘误
+
+* L1 cache tag应该是28位的（PA_size - PNO_size
 
 Requirements
 
 * L1 cache
-    * L1\_entry\_num = page\_entry\_num = 2^8^
+    * L1\_entry\_num = page\_entry\_num = 2^7^
     * 因为cache是用phy addr去编址的，所以不能用VPN来寻，只能用PPO=VPO中的高8位作为L1_cache的index先去试一次，这才要求有上面那个条件
 * L2 cache
-    * L2时已经得到PA了，因此可以把整个PA用来寻数据
+    * L2时已经得到PA(来自页表或TLB)了，因此可以把整个PA用来寻数据
+
+### Critical word first & early restart
+
+* On a read miss processor will need just the loaded word (or byte) very soon, but processor has to wait until the whole block is brought into the cache
+* **Early restart**: as soon as the requested word arrives in the cache, send it to the processor and then continue reading the rest of the block into the cache
+* **Critical word first**: get the requested word first from the memory, send it asap to the processor and then continue reading the rest of the block into the cache

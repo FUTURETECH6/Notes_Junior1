@@ -46,6 +46,12 @@ PA = {VPN\=\=\>PPN | VPO\=\=PPO}
 
 # TLB
 
+![](assets/image-20201221100713616.png)
+
+勘误
+
+* L1 cache tag应该是28位的（PA_size - PNO_size
+
 # Page Size
 
 # Protection

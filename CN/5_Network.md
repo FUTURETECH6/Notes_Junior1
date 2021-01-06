@@ -87,10 +87,11 @@ DV算法存在的问题：对于好消息的反应很迅速，但是对于坏消
 **Poisoned reverse**
 
 * If C routes through B to get to A:
-    * C tells B its distance to A is infinite
+    * C tells B its(指的是C自己) distance to A is infinite
 * will this completely solve count to infinity problem?
     * No
     * Can you give an example?
+    * **HW5.3**
 
 ## Link State
 
@@ -258,6 +259,8 @@ Top 10 principles for the Internet
 
 ### Header fields
 
+![](https://img-blog.csdnimg.cn/20200327124146460.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzkxNDYwNA==,size_16,color_FFFFFF,t_70)
+
 <img src="assets/image-20201124194225328.png" style="zoom: 33%;" />
 
 * **Version**(4) : to keep track of which version of the protocol the datagram belongs to.
@@ -270,8 +273,8 @@ Top 10 principles for the Internet
 * **DF**(1) : Don't Fragment，用在PathMTU discovery中
 * **MF**(1) : More Fragment. <u>The flag is set for all fragments except</u>
     <u>the last</u>
-* **Fragment offset**(13) : to tell where in the current datagram this
-    fragment belongs
+* **Fragment offset**(13) : to tell where in the current datagram this fragment belongs
+    * ==一个frag有8个bytes==
     * 因此每个datagram最多8192段
     * 与Identification和MF配合使用可以实现[分段操作](# Packet Fragmentation)
 * **Time to Live**(8) : a counter used to limit packet lifetimes. 每一跳减1，并且当在某一台路由器上有排队时，还得多减一点

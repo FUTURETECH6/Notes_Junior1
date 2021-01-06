@@ -4,6 +4,8 @@
 
 <img src="assets/image-20201024155629757.png" style="zoom:50%;" />
 
+## DFA Def
+
 > <a id="compareDFA"></a><a href="#compareNFA">compare NFA</a>
 >
 > Definition: A **deterministic finite automata**(DFA) is a quintuple $(K, \Sigma, \delta, s, F),$ where
@@ -74,6 +76,8 @@ $L_2 = \{w \in \{a, b\}^*: w\text{ contains three consecutive }b\text{'s}\}.$
 <img src="assets/image-20201024164036785.png" style="zoom:50%;" />
 
 # NFA
+
+## NFA Def
 
 Generalization of  determinism:<br />•  Many "next-states"<br />•  Computation is a "tree"<br />•  Acceptance: $\exist$ a path to accepting leaf
 
@@ -181,9 +185,11 @@ To construct an equivalent DFA $M^{\prime}=\left(K^{\prime}, \Sigma, \delta, s^{
 
 <img src="assets/image-20201106103025436.png" style="zoom:67%;" />
 
-# FA and regex
+# FA and ReL
 
 个洞定理是regex的性质，只能作为判断语言不为regex的依据，不能用作肯定的依据
+
+## FA Closure
 
 **Theorem**: The class of languages accepted by FA is closed under the following 5 operation (证明方法：给定M~1~, M~2~，能构造出所需的自动机M即可)
 (a) Union, $\cup$, <img src="assets/image-20201108205432775.png" style="zoom: 50%;" />
@@ -195,6 +201,8 @@ To construct an equivalent DFA $M^{\prime}=\left(K^{\prime}, \Sigma, \delta, s^{
 （abc的封闭性是regex的定义本来就有的，de的是另外的）
 
 
+
+## FA/ReL
 
 **Theorem**: A language is regular iff it is accepted by a FA.
 
@@ -248,7 +256,7 @@ To construct an equivalent DFA $M^{\prime}=\left(K^{\prime}, \Sigma, \delta, s^{
 
 
 
-# Regular or not (Lang)
+# ReL/nReL
 
 ## Regular
 

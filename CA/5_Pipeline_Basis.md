@@ -1,3 +1,5 @@
+[TOC]
+
 # Basis
 
 **Pipelining Terminology**
@@ -112,9 +114,21 @@ m是指令个数，n是拆分任务数
 
 ## Dependence
 
+### Data dependency
+
+A Flow dependency, also known as a data dependency or true dependency or read-after-write (RAW), occurs when an instruction depends on the result of a previous instruction:
+
+```
+1. A = 3
+2. B = A
+3. C = B
+```
+
+Instruction 3 is truly dependent on instruction 2, as the final value of C depends on the instruction updating B. Instruction 2 is truly dependent on instruction 1, as the final value of B depends on the instruction updating A. Since instruction 3 is truly dependent upon instruction 2 and instruction 2 is truly dependent on instruction 1, instruction 3 is also truly dependent on instruction 1. [Instruction level parallelism](https://en.wikipedia.org/wiki/Instruction_level_parallelism) is therefore not an option in this example. [[1\]](https://en.wikipedia.org/wiki/Data_dependency#cite_note-architecture-1)
+
 ### Name dependences
 
-**anti-dependence**
+**anti-dependence** (WAR)
 
 ```assembly
 div $2, $6, $4
@@ -132,7 +146,7 @@ add $1, $0, $12
 sub $8, $1, $14
 ```
 
-**output dependence**
+**output dependence **(WAW)
 
 ```assembly
 div $2, $6, $4
@@ -141,6 +155,8 @@ sub $2, $6, $14
 ```
 
 如果乱序执行$2可能会不知道是哪个值
+
+==AS3.12.b==
 
 ### Control Dependence
 

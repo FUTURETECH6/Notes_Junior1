@@ -1,3 +1,5 @@
+[TOC]
+
 # CF Grammars
 
 <u>用$\rightarrow$表示“可以是”</u>，语言生成式定义如下：从由一个符号$S$组成的字符串开始，在当前字符串中找到出现在已定规则中的"$\rightarrow$"左边的<u>符号</u>，并将其替换成"$\rightarrow$"右边的<u>字符串</u>，直到不存在"$\rightarrow$"左边的符号位置
@@ -58,7 +60,7 @@ $L(G)$ is the language containing all strings of balanced parentheses(圆括号)
 $L(G)=\left\{w \in\{a, b\}^{*}: w\right.$ has the same number of $a^{\prime} s$ and $\left.b^{\prime} s\right\}$
 
 **Proof**:
-1 、$w \in L(G) \Rightarrow w$ has the same number of $a$ 's and $b$ 's.
+1 、$w \in L(G) \Longrightarrow w$ has the same number of $a$ 's and $b$ 's.
 <u>By Induction on length $k$ of derivation.</u>
 (a) $k=1$
 The derivation is $S \Rightarrow e \Rightarrow w=e$ has the same number of $a$ 's and $b$ 's.
@@ -74,7 +76,7 @@ $$
 since $S \Rightarrow^{*} x, S \Rightarrow^{*} y$ by derivations of length $<k$, $x, y$ have equal number of $a$ 's and $b$ 's(IH)
 so do $x y, a x b,$ and $b x a . \quad \sqrt{ }$
 
-2、$w$ has the same number of $a$'s and $b$ 's $ \Rightarrow w \in L(G)$
+2、$w$ has the same number of $a$'s and $b$ 's $ \Longrightarrow w \in L(G)$
 。。。PPT10
 
 ### CFL & RegexL
@@ -84,7 +86,7 @@ so do $x y, a x b,$ and $b x a . \quad \sqrt{ }$
 * Proof 1
     * CFL是pushdown automata接受的语言，而pushdown automata是FA的推广<!--（Regex == FA  > PA > CFL)-->
 * Proof 2
-    * 由[后面的知识](# )，CFL在union、concatenation、K-star下是封闭的。而trival的语言$\empty, \{a\}$都是CF的（分别用R为空和R仅有一条S-->a的文法生成），因此CFL一定包括其在这些运算下的闭包（即所有正则语言）
+    * 由[后面的知识](#CFL Closure)，CFL在union、concatenation、K-star下是封闭的。而trival的语言$\empty$和$\{a\}$都是CF的（分别用R为空和R仅有一条S-->a的文法生成），因此CFL一定包括其在这些运算下的闭包（即所有正则语言）
 * Proof 3：直接构造
     * DFA $M=(K, \Sigma, \sigma, s, F)$, For CFG $G(M) = (V, \Sigma, R, S)$,
         * $V = K \cup \Sigma$
@@ -121,7 +123,7 @@ graph TB
 
 结构
 
-* Node: V 中符号
+* Node: V中符号
 * Root：S
 * Leaves：Σ中符号
 * 从左到右连接叶节点得到的即是推导出来的终结符串，称为Parse Tree的结果
@@ -244,7 +246,7 @@ Motivation: 正则语言都是CFL（真子集），所以不是每一个CFL都�
 >     * enter some state $q$
 >     * replace $\beta$ by $\gamma$ on the top of the stack
 >     * advance the tape head
-> * PDA execution: $e$ -transition
+> * PDA execution: $e$-transition
 >     Consider $((p, e, \beta),(q, \gamma)) \in \Delta,$ Then the PDA can:
 >     * enter some state $q$
 >     * replace $\beta$ by $\gamma$ on the top of the stack
@@ -255,10 +257,10 @@ Motivation: 正则语言都是CFL（真子集），所以不是每一个CFL都�
 > **Remark**:
 >
 > * since several transition of $M$ may be simultaneously applicable at any point, the machines are **<u>nondeterministic</u>**.
-> * <u>((p, u, e), (q, a)): push a; ((p, u, a), (q, e)): pop a</u>
+> * ==<u>((p, u, e), (q, a)): push a; ((p, u, a), (q, e)): pop a</u>==
 > * **Configuration** of a PDA: a member of $K \times \Sigma^{*} \times \Gamma^{*}$ `(状态，未输入所有符号，栈中所有符号)`
 > * $(p, x, \alpha) \vdash_{M}(q, y, \zeta)$ (yield in one step) iff there is some transitions $((p, a, \beta),(q, \gamma)) \in \Delta$ such that
->     * $x=a y, a \in \sum \cup\{e\}$
+>     * $x=a y, a \in \Sigma \cup\{e\}$
 >     * $\alpha=\beta \eta$
 >     * $\zeta=\gamma \eta$ for some $\eta \in \Gamma^{*}$
 >     * <img src="assets/image-20201203212614639.png" style="zoom: 50%;" /> $\Rightarrow$ <img src="assets/image-20201203212637918.png" style="zoom:50%;" />
@@ -268,7 +270,7 @@ Motivation: 正则语言都是CFL（真子集），所以不是每一个CFL都�
 >
 > **Acceptance conditions**
 >
-> A PDA $M$ accepts a string $w \in \sum^{*}$ iff
+> A PDA $M$ accepts a string $w \in \Sigma^{*}$ iff
 >
 > * $(s, w, e) \vdash_{M}^{*}(p, e, e)$ for some $p \in F$
 > * There is a sequence of configuration $C_{0}, \cdots, C_{n}(n>0)$, $(s, w, e)=C_{0} \vdash_{M} C_{1} \vdash_{M} \cdots \vdash_{M}(p, e, e)$ for some $p \in F$
@@ -279,6 +281,8 @@ Motivation: 正则语言都是CFL（真子集），所以不是每一个CFL都�
 > - Accept if the PDA is in a final state
 >
 > The language accepted by $M$: $L(M)=\left\{w \mid(s, w, e) \vdash_{M}^{*}(p, e, e)\right.$ for some state $\left.p \in F\right\}$
+
+既然有e-transition的存在，那PDA的终止条件是什么>？？
 
 ## PDA Ex
 
@@ -306,7 +310,7 @@ Main idea: Define PDA $M$ to mimics a leftmost derivation of the input string.
 
 #### Construction of PDA
 
-Define PDA $M=(K, \Sigma, \Gamma, \Delta, s, F)$
+Define PDA $M=(K'=\{p, q\}, \Sigma, \Gamma'=V, \Delta', s=p, F=\{q\})$
 
 - PDA $M$ has just 2 states.
     - $p$: start state
@@ -315,14 +319,14 @@ Define PDA $M=(K, \Sigma, \Gamma, \Delta, s, F)$
 - Let $\Delta$ contains the following transitions:
 1) $((p, e, e),(q, S))$
 2) $((q, e, A),(q, x))$ for each rule $A \rightarrow x \in R$
-3) $((q, a, a),(q, e)), \forall a \in \sum$.
+3) $((q, a, a),(q, e)), \forall a \in \Sigma$.
 
 See example [here](#Ex.3.4.1)
 
 
 
 Verify $L(M)=L(G)$
-Claim: Let $w \in \sum^{*}$ and $\alpha \in(V-\Sigma) V^{*} \cup\{e\} .$ Then 。。。
+Claim: Let $w \in \Sigma^{*}$ and $\alpha \in(V-\Sigma) V^{*} \cup\{e\} .$ Then 。。。
 The claim will suffice to Lemma. Taking $\alpha=e$ that。。。。
 
 ### PDA->CFG
@@ -377,4 +381,93 @@ Let's look at how a PDA can consume $x=x_{1} x_{2} \cdots x_{k}$ and empty the s
 > Definition:
 > The nonterminals $\langle q, A, p\rangle$ represents any portion of the input string that might be read between a point when $M$ is in state *q* with $A$ on top of stack, and a point in time when $M$ removes the occurrence of $A$ from the stack and enters state $p$.
 >
-> $V=\{S\} \cup \sum \cup\{\langle q, A, p\rangle \mid \forall q, p \in K, A \in \Gamma \cup\{e, Z\}\}$
+> $V=\{S\} \cup \Sigma \cup\{\langle q, A, p\rangle \mid \forall q, p \in K, A \in \Gamma \cup\{e, Z\}\}$
+
+。。。
+
+# CFL/nCFL
+
+## CFL Closure
+
+> **Theorem**: CFL are closed under <u>union</u>, <u>concatenation</u> and <u>K-star</u>. (Not under intersection, complement)
+>
+> 
+>
+> what about difference?
+
+
+
+> **Theorem**: CFL $\cap$ Regex is a CFL.
+>
+> 此处交的定义如下：
+>
+> Let $M_{1}=\left(K_{1}, \Sigma, \Gamma_{1}, \Delta_{1}, s_{1}, F_{1}\right)$ be a aPDA nd $M_{2}=\left(K_{2}, \Sigma, \delta, s_{2}, F_{2}\right)$ be a DFA.
+>
+> Bulid PDA $M=(K, \Sigma, \Gamma, \Delta, s, F),$ where
+>
+> * $K=K_{1} \times K_{2}$
+> * $\Gamma=\Gamma_{1}$
+> * $s=\left(s_{1}, s_{2}\right)$
+> * $F=F_{1} \times F_{2}$
+> * $\Delta:$ For each $\left(\left(q_{1}, a, \beta\right),\left(p_{1}, \gamma\right)\right) \in \Delta_{1},$ and $q_{2} \in K_{2}$, $\left(\left(\left(q_{1}, q_{2}\right), a, \beta\right),\left(\left(p_{1}, \delta\left(q_{2}, a\right)\right), \gamma\right)\right) \in \Delta$
+
+**Example**
+
+$L=\left\{w: w \in\{a, b\}^{*}, w\right.$ has equal numbers of $a^{\prime} s$ and $b^{\prime} s$ but containing no substring $abaa$ or $b a b b\}$. Then $L$ is context-free.
+
+Solution:
+
+* $L_{1}=\left\{w: w \in\{a, b\}^{*}, w\right.$ has equal numbers of $a^{\prime} s$ and $\left.b^{\prime} s\right\}$ (CFL)
+* $L_{2}=\left\{w \in\{a, b\}^{*}: w\right.$ containing no substring $a b a a$ or $\left.b a b b\right\}$ $=\{a, b\}^{*}-\{a, b\}^{*}(a b a a \cup b a b b)\{a, b\}^{*}$ (reL)
+* $L=L_{1} \cap L_{2}$ be a context-free language.
+
+
+
+## Pumping Theorem
+
+> **Lemma** The yield(结果) of any parse tree of *G* of height *h* has length at most $\phi(G)^h$
+>
+> * $\phi(G)$：G的扇出，表示G的规则右边的最大符号数>？这定义什么意思？根据证明来看难道不就是每个节点的最大儿子数吗
+> * Path：通路，字面意思，同DS
+>     * Length：通路的线段数
+> * Height：最大的Length值
+>
+> <img src="assets/image-20201208214743798.png" style="zoom:50%;" />
+
+
+
+> **Theorem** (**Pumping Theorem**) Let $G=(V, \Sigma, R, S)$ be a CFG. Then any string $w \in L(G)$ of length greater than $\phi(G)^{\mid V-\Sigma\mid}$ can be rewritten as $w=u v x y z$ in such way that:
+>
+> * $|v y| \geq 1$
+> * $u v^{n} x y^{n} z \in L(G)$ for every $n \geq 0$
+>
+> 
+>
+> **Remark**: Proving that a language is not CFL
+>
+> * Let *L* be the proposed CFL
+> * There is some *n*, by the pumping lemma
+> * Choose a string *s*, longer than *n* symbols, in the language *L*
+> * Using the pumping lemma, construct a new string s that is not in the language
+>
+> **Remark**: Any CFL over a single-letter alphabet is regular.
+
+
+
+> **Theorem**: The CFL are **not closed** under <u>intersection</u> or <u>complementation</u>
+
+# Alg for CFG
+
+> **Theorem**
+>
+> * There is a polynomial algorithm which, given a CFG, constructs an  equivalent PDA.
+> * There is a polynomial algorithm which, given a PDA, constrcuts an equivalent CFG.
+> * There is a polynomial algorithm which, given a CFG and a string $x$, decides whether $x \in L(G)$.
+> 
+>**Remark**
+> 
+>* There are no algorithms for two CFGs( or PDA) are equivalent(see Chapter 5).
+> * For regualr language, there was no need for an analog of part (c) above, since regular languages are represented in terms of an efficient algorithm for deciding precisely the membership question in (c): a DFA.
+>     * For CFL, we have so far introduced only non-algorithmic, nondeterministic acceptor-PDA.
+>     * We will construct a deterministic acceptor algorithm in the next subsection that for any CFL.
+
