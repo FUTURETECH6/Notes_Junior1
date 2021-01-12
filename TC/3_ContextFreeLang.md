@@ -49,7 +49,7 @@ $L(G)=\left\{a^{n} b^{n}: n \geq 0\right\}$, <u>here *L(G)* is context-free but 
 
 
 
-**Ex.2**.<a id="Ex.3.1.4"></a> Let $G=(V, \Sigma, R, S)$ where $V=\{S,(,)\}, \Sigma=\{(,)\}, R=\{S \rightarrow e, S \rightarrow S S, S \rightarrow(S)\}$
+<a id="Ex.3.1.4">**Ex.2**.</a> Let $G=(V, \Sigma, R, S)$ where $V=\{S,(,)\}, \Sigma=\{(,)\}, R=\{S \rightarrow e, S \rightarrow S S, S \rightarrow(S)\}$
 
 $L(G)$ is the language containing all strings of balanced parentheses(圆括号).
 
@@ -298,7 +298,7 @@ Also see example of <a id="Ex.3.4.1">constructing a PDA</a>
 
 Theroem: The class of languages accepted by PDA is exactly the class of CFL
 
-### CFA->PDA
+### CFG->PDA
 
 **Lemma**: Each Context-Free language is accepted by some PDA.
 

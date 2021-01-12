@@ -42,7 +42,7 @@ PA = {VPN\=\=\>PPN | VPO\=\=PPO}
 
 ### Replacement on VM miss
 
-### Wriet
+### Write
 
 # TLB
 
@@ -51,6 +51,7 @@ PA = {VPN\=\=\>PPN | VPO\=\=PPO}
 勘误
 
 * L1 cache tag应该是28位的（PA_size - PNO_size
+* ==如果TLB miss的话是要读内存刷新的，而不是直接去内存读==
 
 # Page Size
 

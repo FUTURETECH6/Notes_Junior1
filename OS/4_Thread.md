@@ -1,4 +1,4 @@
-
+[TOC]
 
 # Basis
 
@@ -116,7 +116,7 @@ Threads are individually scheduled by the kernel
 
 
 
-## Kernel
+## Kernel Thread
 
 * To make concurrency cheaper, the execution aspect of process is separated out into threads. As such, the OS now manages threads and processes. All thread operations are implemented in the kernel and the OS schedules all threads in the system. OS managed threads are called kernel-level threads
 * In this method, the kernel knows about and manages the threads. No runtime system is needed in this case. <u>**Instead** of thread table in each process</u>, the kernel has a **thread table** that keeps track of all threads in the system. In addition, the kernel also maintains the **traditional process table** to keep track of processes. Operating Systems kernel provides system call to create and manage threads.
@@ -130,7 +130,7 @@ Threads are individually scheduled by the kernel
     * The kernel-level threads are slow and inefficient. For instance, threads operations are hundreds of times slower than that of user-level threads. (从create和maintain的角度
     * Since kernel must manage and schedule threads as well as processes. It require a full thread control block (TCB) for each thread to maintain information about threads. As a result there is significant overhead and increased in kernel complexity.
 
-## User
+## User Thread
 
 用进程的概念进行线程调度
 
@@ -150,7 +150,7 @@ Threads are individually scheduled by the kernel
   * There is a lack of coordination between threads and operating system kernel. Therefore, process as whole gets one time slice irrespect of whether process has one thread or 1000 threads within. It is up to each thread to relinquish control to other threads. (内核和用户线程之间无法沟通)
   * User-level threads requires non-blocking systems call i.e., a multithreaded kernel.   Otherwise, entire process will blocked in the kernel, even if there are runnable threads left in the processes. For example, if one thread causes a page fault, the process blocks.
 
-## Model between KernelT and UserT
+## Model between K th and U th
 
 A relationship must exist between user threads and kernel threads
 
@@ -218,7 +218,14 @@ Similar to many-to-many model, except that it allows a user thread to be bound t
 
 ## fork & exec
 
-
+* Fork duplicates the whole single-threaded process
+* Does fork duplicate only the calling thread or all threads for multithreaded process?
+    * some UNIX systems have two versions of fork, one for each semantic
+* <u>Exec typically replaces the entire process, multithreaded or not</u>
+    * use “fork the calling thread” if calling exec soon after fork
+* Which version of fork to use depends on the application
+    * Exec is called immediately after forking: duplicating all threads is not necessary
+    * Exec is not called: duplicating all threads
 
 ## Signal handling
 

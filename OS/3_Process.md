@@ -1,3 +1,5 @@
+[TOC]
+
 # Process concept
 
 **Part**
@@ -102,6 +104,8 @@ Scheduler needs to **balance** the needs of:（如果一直在做调度，花在
 * Context-switch time depends on hardware support
     * some hardware provides multiple sets of registers per CPU: multiple contexts loaded at once
 
+![](assets/image-20210111143856463.png)
+
 # Operations on processes
 
 ## Process Creation
@@ -188,7 +192,7 @@ Multiprocess Architecture
 
 # IPC
 
-Inter-process communication
+**Inter-process communication**
 
 Cooperating process can affect or be affected by the execution of another process
 
@@ -277,7 +281,7 @@ int main() {
 }
 ```
 
-### MsPass
+### MsgPass
 
 * Processes communicate with each other by exchanging messages
     * without resorting(诉诸、常去) to shared variables
@@ -328,7 +332,7 @@ Whether communication is direct or indirect, messages exchanged by communicating
 
 ## Synchronization
 
-我明白啦 shm的sync就是我说的那样 它能确保原子性；messagepass两者的用途不一样，async一般是用于那种对方要处理很久的事务，如果你一直在等对方的回信，就非常浪费时间；而sync一般是用于比如说对方只能接受并处理一个信息且正好现在就在接受或处理，而我现在给他发完就跑信息就直接丢了，所以得等待，这个可以通过*buffered message passing*的模型来使接收者能在处理一个消息的同时将新的消息存入缓存，以此来解决发送者等待时间过长的问题
+我明白啦 shm的sync就是我说的那样 它能确保原子性；message pass两者的用途不一样，async一般是用于那种对方要处理很久的事务，如果你一直在等对方的回信，就非常浪费时间；而sync一般是用于比如说对方只能接受并处理一个信息且正好现在就在接受或处理，而我现在给他发完就跑信息就直接丢了，所以得等待，这个可以通过*buffered message passing*的模型来使接收者能在处理一个消息的同时将新的消息存入缓存，以此来解决发送者等待时间过长的问题
 
 https://www.cs.cmu.edu/afs/cs/academic/class/15671-f95/www/handouts/concurrency/node7.html
 

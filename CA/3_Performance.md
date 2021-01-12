@@ -120,7 +120,7 @@ n=\frac{\text { Execution time }_{\mathrm{Y}}}{\text { Execution time }_{\mathrm
 $$
 
 
-# Quantitative Principles
+# <u>Quantitative Principles</u>
 
 * **Parallelism**
 

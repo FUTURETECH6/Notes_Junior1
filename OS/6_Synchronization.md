@@ -12,8 +12,6 @@ Several processes (or threads) access and manipulate the same data concurrently 
 
 
 
-
-
 # Critical Section
 
 临界区

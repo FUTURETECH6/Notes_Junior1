@@ -20,7 +20,7 @@ shared mem/cache：并行更新的问题
 
 > S is overall speedup, s is enhanced speedup, p is enhanced partiton
 
-$S_{\text {latency }}(s)=\frac{1}{(1-p)+\frac{p}{s}}$
+==$S_{\text {latency }}(s)=\frac{1}{(1-p)+\frac{p}{s}}$==
 
 * *S*~latency~ is the theoretical speedup of the execution of the whole task;
 * *s* is the number of threads across which the parallel portion is split;

@@ -1,3 +1,5 @@
+[TOC]
+
 # Basis
 
 ## Burst
@@ -42,26 +44,24 @@ Dispatch latency: the time it takes for the dispatcher to stop one process and s
 * CPU utilization : percentage of CPU being busy 🔼​​
 * Throughput: # of processes that complete execution per time unit 🔼
 * Turnaround time: the time to execute a particular process <u>from submission(开始) to completion</u> 🔽
+    * 包括了waiting time和burst time
+    * Turnaround Time = Completion Time – Arrival Time
+        * Arrival Time: Time at which the process arrives <u>in the ready queue</u>.
+        * Completion Time: Time at which process <u>completes</u> its execution.
 * Waiting time: the total time spent waiting in the ready queue 🔽
+    * Waiting Time = Turn Around Time – Burst Time
+        * Burst Time: Time required by a process for <u>CPU execution</u>.
 * Response time: the time it takes from when <u>a request was submitted until the first response is produced</u> 🔽
     * the time it takes to start responding
 
-> Arrival Time: Time at which the process arrives <u>in the ready queue</u>.
-> Completion Time: Time at which process <u>completes</u> its execution.
-> Burst Time: Time required by a process for <u>CPU execution</u>.
->
-> Turn Around Time: Time Difference between completion time and arrival time.
-> <u>Turn Around Time = Completion Time – Arrival Time</u>
->
-> Waiting Time(W.T): Time Difference between turn around time and burst time.
-> <u>Waiting Time = Turn Around Time – Burst Time</u>
+
 
 **Other Optmization Criteria**
 
 * Often consider avg val, but sometimes need the max/min val
     * for interactive system, minimize <u>variance</u> in response time
 
-
+怎么算看作业
 
 # Scheduling algorithms
 
@@ -70,7 +70,7 @@ Dispatch latency: the time it takes for the dispatcher to stop one process and s
 * Shortest-job-first scheduling (SJF)
     * optimal: minimum average waiting time
     * preemptive or nonpreemptive (depends on algorithm)
-        * preemptive: deschedyle when a process arrives
+        * preemptive: reschedule when a process <u>arrives</u> (因此只有新来的能抢别人)
         * nonpreemtive: PPT page21，注意P1执行了1单位时间就被替换
 * Priority scheduling
     * preemptive or nonpreemptive (取决于是否交换调度)

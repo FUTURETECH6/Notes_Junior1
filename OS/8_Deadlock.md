@@ -112,7 +112,7 @@ T~1~ gets(available) and returns(available+extra) 4 at most, but T~0~ needs at l
 * Single instance of each resource type ➠ use resource-allocation graph
 * Multiple instances of a resource type ➠ use the banker’s algorithm
 
-### Res-Alloc Graph(SinIns)
+### Res-Alloc Graph(Sin Instance)
 
 * [Resource-allocation graph](# Resource Allocation Graph) can be used for single instance resource deadlock avoidance
     * one new type of edge: claim edge (需求边)
@@ -130,7 +130,7 @@ T~1~ gets(available) and returns(available+extra) 4 at most, but T~0~ needs at l
 
 <img src="assets/image-20201122163316583.png" style="zoom: 33%;" />$\Huge \Rightarrow$<img src="assets/image-20201122163344067.png" style="zoom:33%;" />
 
-### Banker’s Algorithm(MulIns)
+### Banker’s Algorithm(Mul Instance)
 
 **Structure**
 

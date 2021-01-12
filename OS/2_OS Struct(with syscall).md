@@ -1,4 +1,6 @@
-## System call
+[TOC]
+
+# System call
 
 **Use API**
 
@@ -40,12 +42,6 @@ fd为open外设时得到的fd，request是要传给外设驱动的东西
 
 
 MSDOS，FreeDSB
-
-
-
-## sys service
-
-df, free, 
 
 # Linker & Loader
 
@@ -155,7 +151,7 @@ Tools include
 * perf – collection of Linux performance tools
 * tcpdump – collects network packets
 
-# System Call
+# System Call Ex
 
 fork：返回值为负fork失败，为0为子进程，为正为父进程，子进程会继承父进程的内存空间，堆是否会继承>？会继承，VA和PA都一样(显式拷贝)，但是如果子或父对malloc的东西进行了修改则OS才会进行深拷贝(==COW==)
 
@@ -164,6 +160,7 @@ fork+wait：等待父/子结束之后再执行
 fork+wait+exec*：
 
 ```c++
+char * const myargs[3];
 myargs[0] = strdup("wc");
 myargs[1] = strdup("p3.c");
 myarsg[2] = NULL;

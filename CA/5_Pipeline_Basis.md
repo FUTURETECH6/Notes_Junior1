@@ -119,9 +119,9 @@ m是指令个数，n是拆分任务数
 A Flow dependency, also known as a data dependency or true dependency or read-after-write (RAW), occurs when an instruction depends on the result of a previous instruction:
 
 ```
-1. A = 3
-2. B = A
-3. C = B
+A = 3
+B = A
+C = B
 ```
 
 Instruction 3 is truly dependent on instruction 2, as the final value of C depends on the instruction updating B. Instruction 2 is truly dependent on instruction 1, as the final value of B depends on the instruction updating A. Since instruction 3 is truly dependent upon instruction 2 and instruction 2 is truly dependent on instruction 1, instruction 3 is also truly dependent on instruction 1. [Instruction level parallelism](https://en.wikipedia.org/wiki/Instruction_level_parallelism) is therefore not an option in this example. [[1\]](https://en.wikipedia.org/wiki/Data_dependency#cite_note-architecture-1)
