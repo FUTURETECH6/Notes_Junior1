@@ -1,3 +1,63 @@
+[TOC]
+
+# OSC
+
+## Four Components of a Computer System
+
+* Computer system has four components:
+    * **hardware** provides basic computing resources
+        * e.g., CPU, memory, I/O devices
+    * **operating system** controls and coordinates use of hardware among users
+    * **application programs** use system resources to solve computing problems
+        * e.g., word processors, compilers, web browsers….
+    * **users**
+        * e.g., people, machines, other computers
+
+<img src="assets/image-20210116214715490.png" style="zoom: 33%;" />
+
+
+
+## What does OS do
+
+* OS is a resource allocator
+    * it manages all resources
+    * it decides between conflicting requests for efficient and fair resource sharing
+    * ==Process is the unit of resource allocation!==
+* OS is a control program
+    * it controls program execution to prevent errors and improper use of system
+* 以系统调用的形式向app提供资源
+
+## OS Def（看一下就好）
+
+* A good approximation is “everything a vendor ships when you order an operating system”
+    * no universally accepted definition
+    * what the vendor ships can vary wildly
+* Kernel is “the one program running at all times on the computer”
+    * what about demon programs that starts with the kernel such as init?
+* Everything else is either a system program or an application program
+* Operating system may have different meanings in different contexts
+    * Is WeChat an operating system?
+
+## Device
+
+OS通过driver与device controller打交道
+
+==DMA==
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Misc
+
 1111 0000: +=1;
 
 1111 0010: -=1;
@@ -14,9 +74,11 @@
 
 
 
-Int & Trap
+## ==Int & Trap==
 
 * 中断向量：中断控制器控制，知道是什么发生了中断，将PC跳到中断处理程序处
+    * polling: scause/mcause
+    * vectorized: stvec/mtvec
 * interrupt是异步的；trap(软中断)是同步的，由程序来trap，例如`fopen`从硬盘取东西
     * 异步：被中断，特殊的，read的时候可以边拿数据边继续执行同一个进程
     * 同步：自己中断，read的时候等数据拿回来的时候执行别的进程
@@ -25,12 +87,14 @@ context(上下文)：保存的被中断时的程序的状态，如栈指针、
 
 
 
-Cache
+## Cache
 
 * 内存虚拟化，每个进程都认为自己完整地拥有所有的内存空间
-* Cache是通过物理地址进行索引(才能唯一确定)，但是现代CPU都不用PA了，因为从VA到PA需要花时间。同时用VA从Cache拿，然后从MMU获取PA进行对比，如下面的上图<br /><img src="assets/cache_mmu.jpg" style="zoom: 25%;" />
+* Cache是通过物理地址进行索引(才能唯一确定)，但是现代CPU都不用PA了，因为从VA到PA需要花时间。同时用VA从Cache拿，然后从MMU获取PA进行对比，如下面的图<br /><img src="assets/cache_mmu.jpg" style="zoom: 25%;" />
 
-**CMT** (Chip Multithreading)
+## CMT
+
+(Chip Multithreading)
 
 多核和超线程
 
@@ -38,7 +102,7 @@ Cache
 
 
 
-**NUMA**
+## NUMA
 
 ```mermaid
 graph LR
@@ -62,34 +126,43 @@ c1-.-c3
 c2-.-c3
 ```
 
-CPU之间有高速总线连接，
+Mem是统一编址的，因此可以访问其他core的mem，CPU之间有高速总线连接
 
 
+
+## Embedded OS
 
 特殊的嵌入式操作系统：SSD里防止频繁擦除某一块导致的OS，网卡上用于硬件提速的OS
 
 
 
-Dual-mode
+## Dual-mode
 
 * CPU提供
     * user mode(非特权模式)：不能access IO控制器所在的内存区域(不能操作设备)、不能换页表，只能做计算
-        * 要特殊的事情可以调用kernel mode的接口去做
+        * 要特殊的事情可以调用kernel mode的接口（即系统调用）去做
     * kernel mode(特权模式)：相反
 * 简单的操作系统不提供双模式，如嵌入式系统
 
 
 
-进程与线程的区别
+## 进程与线程的区别
 
-* 进程是一个程序运行的instance，进程与进程之间是隔离的
+* 进程是一个program运行的instance，进程与进程之间是隔离的
     * 一个进程要做n个相对隔离的事务，则可以用n个线程并行执行这几个事务，例如网络App的网络访问和UI要隔离
 * 线程是CPU执行的pipeline
     * 每个线程有自己的program counter，说明线程是被cpu调度的实体
+    * code、global共享，stack、reg不共享
 
 
 
-并行与并发
+## Syscall
+
+用strace看
+
+
+
+## 并行与并发
 
 * 并行：多个core
 * 并发：一个core，轮流使用

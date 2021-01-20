@@ -1,4 +1,6 @@
-# jCache
+[TOC]
+
+# Cache
 
 ## Cache Basis
 
@@ -43,7 +45,7 @@ Time required for cache miss depends on:
 
 
 
-## Cache Performance
+## ==Cache Performance==
 
 `CPU time = (CPU execution clock cycles + Memory-stall clock cycles) × Clock cycle time`
 
@@ -75,17 +77,21 @@ MemStallCycle = IC \* MemAccPerInst \* MissRate \* MissPenalty
 
 \\                        = 0.75IC
 
-## Block Placement
+## ==Block Placement==
 
 * DM
 * FA
 * SA
 
-## Block Identification
+==看机组笔记==
+
+## ==Block Identification==
 
 Tag
 
-## Replacement Strategy
+![](assets/image-20210115192830798.png)
+
+## Replacement Strategy（不是很涉及
 
 * Random
 * LRU
@@ -99,7 +105,25 @@ Tag
     * If all bits are turned on, reset them except for that of the most recently accessed block
     * For replacement, randomly choose one whose bit is turned off
 
-## Write Strategy
+## ==Handling Read==
+
+先找对应index的，如果V是低电平或者tag中的内容不对，则是miss
+
+**Read miss**(L1用哈佛，因为混在一起miss概率会加大)
+
+* instruction cache miss
+* data cache miss
+
+**instruction cache miss**：4steps
+
+1. **stall(挂起) the CPU**: Send the original PC value (current PC-4) to the memory. (等你去内存找回来我可以先去完成其他一堆程序了)
+2. **fetch block from memory**: Instruct main memory to perform a read and wait for the memory to complete its access.
+3. ==**deliver to cache**==(这步别漏了): Write the cache entry, putting the data from memory in the data portion of the entry, writing the upper bits of the address (from the ALU) into the tag field, and turning the valid bit on.
+4. **restart CPU read**: Restart the instruction execution at the first step, which will <u>refetch the instruction again</u>, this time <u>finding it in the cache</u>. (Read Hit)
+
+冷启动：开机的时候，OS为了开机会把Cache全部写满，这时候会很慢；之后OS就在Cache中常驻了因此速度就快了 (论DDR4的重要性
+
+## ==Write Strategy==
 
 ### Write hit
 
@@ -117,13 +141,13 @@ Tag
     * write miss not affect the cache, the block is modified in memory
     * until the program tries to read the block
 
-## Performance Cal
+## ==Performance Cal==
 
 ![](assets/cache_performance.png)
 
 ==注意==
 
-* 最后一个公式，不考虑L1的hit
+* ==最后一个公式，不考虑L1的hit==
 
 **Example**
 
@@ -213,7 +237,7 @@ AMAT_2way = 0.35 \* 1.35 + (0.019 \* 65) = 1.71ns
         * direct mapped or set associative cache;
         * a block discarded and later retrieved in a set;
 
-### Opt
+### ==Basic Opt==
 
 #### Larger Block
 
@@ -235,9 +259,9 @@ AMAT_2way = 0.35 \* 1.35 + (0.019 \* 65) = 1.71ns
 * 👍Reduce conflict misses
 * 👎Increase hit time
 * cache rule of thumb:
-    * a direct-mapped cache of size N has about the same miss rate as a two-way set associative cache of size N/2
+    * ==a direct-mapped cache of size N has about the same miss rate as a two-way set associative cache of size N/2==
 
-#### Multilevel Cache
+#### ==Multilevel Cache==
 
 * 👍Reduce miss penalty
 * Motivation
@@ -260,19 +284,19 @@ AMAT_2way = 0.35 \* 1.35 + (0.019 \* 65) = 1.71ns
 > 3. avg stall cycles per instruction?
 
 1. various miss rates?
-    	* L1
-         * local = global = 40/1000 = 4%
+    * L1
+        * local = global = 40/1000 = 4%
     * L2
          * local: 20/40=50%; global: 20/1000=2%(global\_2=locaol\_1\*local_2)
 2. avg mem access time?
-     * average memory access time =Hit_time_L1 + Miss_rate_L1 x (Hit_time_L2 + Miss_rate_L2 x Miss_penalty_L2)
-          =1 + 4% x (10 + 50% x 200)
-          =5.4
+    * average memory access time =Hit_time_L1 + Miss_rate_L1 x (Hit_time_L2 + Miss_rate_L2 x Miss_penalty_L2)
+        =1 + 4% x (10 + 50% x 200)
+        =5.4
 3. avg stall cycles per instruction?
-     * average stall cycles per instruction=Misses_per_instruction_L1 x Hit_time_L2 + Misses_per_instr_L2 x Miss_penalty_L2
-          =(1.5x40/1000)x10+(1.5x20/1000)x200
-          =6.6
-     * ==L1 hit not considered in "stall"==
+    * average stall cycles per instruction=Misses_per_instruction_L1 x Hit_time_L2 + Misses_per_instr_L2 x Miss_penalty_L2
+        =(1.5x40/1000)x10+(1.5x20/1000)x200
+        =6.6
+    * ==L1 hit not considered in "stall"==
 
 #### Prioritize read misses over writes
 
@@ -296,24 +320,12 @@ lw r3, 0(r0)	# cache miss, read from mem, but r1 still in write_buf, ERROR
 * Processor/program – virtual address
 * Processor -> address translation -> Cache
 
-
-
 ![](assets/image-20201221100713616.png)
 
-勘误
 
-* L1 cache tag应该是28位的（PA_size - PNO_size
-
-Requirements
-
-* L1 cache
-    * L1\_entry\_num = page\_entry\_num = 2^7^
-    * 因为cache是用phy addr去编址的，所以不能用VPN来寻，只能用PPO=VPO中的高8位作为L1_cache的index先去试一次，这才要求有上面那个条件
-* L2 cache
-    * L2时已经得到PA(来自页表或TLB)了，因此可以把整个PA用来寻数据
 
 ### Critical word first & early restart
 
-* On a read miss processor will need just the loaded word (or byte) very soon, but processor has to wait until the whole block is brought into the cache
+* 背景：On a read miss processor will need just the loaded word (or byte) very soon, but processor has to wait until the whole block is brought into the cache
 * **Early restart**: as soon as the requested word arrives in the cache, send it to the processor and then continue reading the rest of the block into the cache
 * **Critical word first**: get the requested word first from the memory, send it asap to the processor and then continue reading the rest of the block into the cache

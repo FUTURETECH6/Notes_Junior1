@@ -1,5 +1,13 @@
 [TOC]
 
+SISD, SIMD, MISD, MIMD
+
+[Flynn's taxonomy - Wikipedia]([Flynn's taxonomy - Wikipedia](https://en.wikipedia.org/wiki/Flynn's_taxonomy))
+
+<img src="assets/cao.png" style="zoom:50%;" />
+
+
+
 FA，SA，DM一般用于L1, L2, L3
 
 DM在L3时BlockNum会很大
@@ -16,7 +24,7 @@ shared mem/cache：并行更新的问题
 
 
 
-**Amdahl's law**
+## **Amdahl's law**
 
 > S is overall speedup, s is enhanced speedup, p is enhanced partiton
 
@@ -62,7 +70,15 @@ Computer Type
 
 
 
-**ISA**
+## Classes of Parallel Arch
+
+according to the parallelism in the instruction and data streams called for by the instructions:
+
+SISD, SIMD, MISD, MIMD
+
+
+
+## **ISA**
 
 7 Dimensions
 
@@ -80,15 +96,15 @@ Computer Type
 
     * 参考：[CS201 Lab](https://www.cs.uregina.ca/Links/class-info/201/SPIM-AddressingMode/lecture.html)
 
-    * 立即数寻址：MIPS immediate addressing means that one operand is a constant within the instruction itself. The advantage of using it is that there is no need to have extra memory access to fetch the operand. But keep in mind that the operand is limited to 16 bits in size.
+    * ~~立即数寻址：MIPS immediate addressing means that one operand is a constant within the instruction itself. The advantage of using it is that there is no need to have extra memory access to fetch the operand. But keep in mind that the operand is limited to 16 bits in size.~~
 
-        <img src="https://www.cs.uregina.ca/Links/class-info/201/SPIM-AddressingMode/addi.gif" style="zoom:33%;" >
+        ~~<img src="https://www.cs.uregina.ca/Links/class-info/201/SPIM-AddressingMode/addi.gif" style="zoom:33%;" >~~
 
-        J can also be considered as immediate，计组说叫伪直接
+        ~~J can also be considered as immediate，计组说叫伪直接~~
 
-        <img src="https://www.cs.uregina.ca/Links/class-info/201/SPIM-AddressingMode/j.gif" style="zoom:33%;" >
+        ~~<img src="https://www.cs.uregina.ca/Links/class-info/201/SPIM-AddressingMode/j.gif" style="zoom:33%;" >~~
 
-    * For MIPS, Base: lw/sw; Immediate: j; PC-relative: beq;
+    * ~~For MIPS, Base: lw/sw; Immediate: j; PC-relative: beq;~~
 
 4. Types and sizes of operands
 

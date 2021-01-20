@@ -17,15 +17,14 @@
 
 区分初始化和未初始化的全局变量可以节省可执行文件的空间，对于要初始化的，需要在一个段存下15这个数据，而对于不需要初始化的则不用
 
-## Process State
+## ==Process State==
 
 * new: the process is being created
 * running: instructions are being executed
-* waiting/blocking: the process is waiting for some
-event to occur
-* ready: the process is waiting to be assigned to a
-processor
+* waiting/blocking: the process is waiting for some event to occur
+* ready: the process is waiting to be assigned to a processor
 * terminated: the process has finished execution
+* ![](assets/image-20210117154729655.png)
 
 ```mermaid
 graph TB
@@ -38,7 +37,7 @@ running --"exit"-->terminated
 
 For single-core CPU, <img src="assets/image-20200928150942308.png" style="zoom:67%;" />
 
-### PCB: Process Control Block
+### ==PCB==: Process Control Block
 
 * In the kernel, ==each== process is associated with a PCB, which is a struct
     * process number (pid)
@@ -47,7 +46,7 @@ For single-core CPU, <img src="assets/image-20200928150942308.png" style="zoom:6
     * CPU registers
     * CPU scheduling information
     * memory-management data
-    * accounting data
+    * accounting data：用了哪些资源
     * I/O status
 * Linux’s PCB is defined in struct task_struct: http://lxr.linux.no/linux+v3.2.35/include/linux/sched.h#L1221
 
@@ -66,8 +65,7 @@ For single-core CPU, <img src="assets/image-20200928150942308.png" style="zoom:6
 kernel maintains scheduling queues of processes:
 
 * job queue: set of all processes in the system
-* ready queue: set of all processes residing in main memory, ready
-and waiting to execute
+* ready queue: set of all processes residing in main memory, ready and waiting to execute
 * device queues: set of processes waiting for an I/O device
 
 <img src="assets/image-20200928204331664.png" style="zoom: 33%;" />
@@ -83,10 +81,10 @@ and waiting to execute
 
 
 Scheduler needs to **balance** the needs of:（如果一直在做调度，花在用户态程序上的CPU时间就会变少）
-* I/O-bound process
+* ==I/O-bound process==
     * spends more time doing I/O than computations
     * many short CPU bursts
-* CPU-bound process
+* ==CPU-bound process==
     * spends more time doing computations
     * few very long CPU bursts
 
@@ -97,9 +95,8 @@ Scheduler needs to **balance** the needs of:（如果一直在做调度，花在
 * Context switch: the kernel switches to another process for execution
     * save the state of the old process
     * load the saved state for the new process
-* Context-switch is overhead; CPU does no useful work while
-  switching
-  * 操作系统在做的事情不会让user process有任何进展
+* Context-switch is overhead; CPU does no useful work while switching
+  * ==操作系统在做的事情不会让user process有任何进展==
   * the more complex the OS and the PCB, longer the context switch
 * Context-switch time depends on hardware support
     * some hardware provides multiple sets of registers per CPU: multiple contexts loaded at once
@@ -125,13 +122,15 @@ Scheduler needs to **balance** the needs of:（如果一直在做调度，花在
 
 UNIX/Linux system calls for process creation
 
-* `fork` creates a new process
-* `exec` overwrites the process’ address space with a new program
+* ==`fork` creates a new process==
+    * ==如果不调用exec，fork出来的也是用旧的code==
+* `exec` <u>overwrites</u> the process’ address space with a new program
+    * What’s the benefit of separating fork and exec? 如果不用执行另外的程序，就可以剩下复制同一个程序的步骤，而直接用原来的程序（一致性可以用COW等机制维护）
 * `wait` waits for the child(ren) to terminate
 
 Ex. 在bash中调用ls会fork出子进程并在子进程中exec ls(ls通过环境变量PATH获得)
 
-What’s the benefit of separating fork and exec? 
+![](assets/image-20210117160205122.png)
 
 
 
@@ -157,7 +156,7 @@ When child process terminates, it is still in the process table until the parent
 * orphan: parent terminated without invoking wait
     * Systemd(这是个进程) will take over. Systemd will call wait() periodically
 
-## Ex
+## ~~Ex~~
 
 **Android Process Importance Hierarchy**（不是创建的hierarchy）
 
@@ -218,7 +217,7 @@ Cooperating process can affect or be affected by the execution of another proces
 * a: shared memory<!--, aka double mapped-->
 * b: message passing
 
-### ShM
+### Shared Mem
 
 * An area of memory shared among the processes that wish to communicate
 * The communication is under the control of the users processes not the operating system.
@@ -227,7 +226,7 @@ Cooperating process can affect or be affected by the execution of another proces
 
 
 
-#### Ex. POSIX ShM
+**Ex. POSIX shm**
 
 About [Portable Operating System Interface](https://zh.wikipedia.org/wiki/%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3)
 
@@ -281,7 +280,7 @@ int main() {
 }
 ```
 
-### MsgPass
+### Msg Passing
 
 * Processes communicate with each other by exchanging messages
     * without resorting(诉诸、常去) to shared variables
@@ -352,10 +351,10 @@ Issues considered (同时也是不同种类的pipes)
 
 **Ordinary Pipes** (aka anonymous pipes in Windows)
 
-* Ordinary pipes allow communication in the producer-consumer style
+* Ordinary pipes allow communication in the **producer-consumer style**
   * producer writes to the *write-end* of the pipe)
   * consumer reads from the *read-end* of the pipe)
-  * ordinary pipes are therefore **unidirectional**
+  * ordinary pipes are therefore **unidirectional**（是uni-不是un-）
   * Two pipes are needed if we need bidirectional communication
       * Typically, a parent process creates a pipe and uses it to communicate with a child process that it creates via fork(). 
   * Once the processes have finished communicating and have terminated, the ordinary pipe ceases to exist.
@@ -378,7 +377,7 @@ Named Pipes到底是什么\>? 实际上Usually a named pipe appears as a file, a
 
 
 
-# Communication in client-server systems
+# ~~Communication in client-server systems~~
 
 ## Sokcets
 

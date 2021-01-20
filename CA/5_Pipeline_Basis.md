@@ -2,6 +2,8 @@
 
 # Basis
 
+==整体提高了，但是各部分可能会变慢==
+
 **Pipelining Terminology**
 
 * *Latency*: the time for an instruction to complete.
@@ -116,7 +118,7 @@ m是指令个数，n是拆分任务数
 
 ### Data dependency
 
-A Flow dependency, also known as a data dependency or true dependency or read-after-write (RAW), occurs when an instruction depends on the result of a previous instruction:
+A Flow dependency, also known as a ==data dependency== or ==true dependency== or read-after-write (==RAW==), occurs when an instruction depends on the result of a previous instruction:
 
 ```
 A = 3
@@ -128,7 +130,7 @@ Instruction 3 is truly dependent on instruction 2, as the final value of C depen
 
 ### Name dependences
 
-**anti-dependence** (WAR)
+**anti-dependence** (==WAR==)
 
 ```assembly
 div $2, $6, $4
@@ -202,16 +204,16 @@ sub $2, $6, $14
 * WAW
 
     * ```assembly
-          div $2, $0, $4
-        sub $2, $6, $14
+      div $2, $0, $4
+      sub $2, $6, $14
       ```
 
-sol
+==sol==
 
 * [forwarding](https://en.wikipedia.org/wiki/Operand_forwarding)(bypassing)
     * directly feed back EX/MEM&MEM/WB pipeline regs’ results to the ALU inputs
 * bubble(stall)
-    * ==并不是所有data hazard都可以通过forwarding解决，例如`lw r1, 0(r2); sub r4, r1, r5`在lw在第四个周期结束才能得到r4，而sub在第三个周期开始就要用到==
+    * ==并不是所有data hazard都可以通过forwarding解决，例如`lw r1, 0(r2); sub r4, r1, r5`在lw在第四个周期结束才能得到r1，而sub在第三个周期开始就要用到==
 
 ### 控制Control冒险
 
@@ -238,7 +240,7 @@ sol
         * 由于在分支指令的EX之前不知道他跳不跳转，所以先IF
             * ==等等，这是怎么在EX开始之前就知道分支跳不跳转的？不知道为啥急着IF==
 
-#### Predicted-untaken 
+#### Predicted-untaken
 
 * 假设所有分支都是未选中分支（即将分支指令看作是普通指令）
 * 在知道确切的是否分支之前，不能改变处理器状态；如果是taken的，则还必须undo对处理器状态的修改
@@ -256,7 +258,7 @@ sol
 * [cpu - Why is the branch delay slot deprecated or obsolete? - Stack Overflow](https://stackoverflow.com/questions/54724410/why-is-the-branch-delay-slot-deprecated-or-obsolete)
     * <!--影响效率，完全可以用分支预测来解决-->
     * <!--对于CISC这样的二十几个周期的指令集，加个nop更浪费时间了-->
-    * 可以用多发射的方式                                           
+    * 可以用多发射的方式
     * 可以拉长流水线
     * 用buffer记录历史信息提高预测率（Branch History Table）
 

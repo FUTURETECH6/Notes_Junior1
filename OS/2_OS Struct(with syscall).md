@@ -111,18 +111,18 @@ When loading a binary
 
 # OS Structure
 
-## Type
+## ==Type==
 
 Many structures:
 
 * simple structure - MS-DOS
     * 没有隔离：因为资源有限，PC使用人群都是技术人员不会乱搞
-* more complex -- UNIX / GNU/Linux
+* Monolithic structure -- UNIX / GNU/Linux
     * 整体内核<br />
         <img src="assets/image-20200924144808161.png" style="zoom:33%;" />
     * 内核提供资源管理，控制等等，可以跑sys program
     * 缺点：有逻辑分层但是却混杂在一起因此难以管控
-    * 但是快
+    * <u>但是快</u>
 * layered structure - an abstraction
     * 层次内核
 * microkernel system structure - L4
@@ -153,7 +153,7 @@ Tools include
 
 # System Call Ex
 
-fork：返回值为负fork失败，为0为子进程，为正为父进程，子进程会继承父进程的内存空间，堆是否会继承>？会继承，VA和PA都一样(显式拷贝)，但是如果子或父对malloc的东西进行了修改则OS才会进行深拷贝(==COW==)
+fork：返回值为负fork失败，为0为子进程，为正为父进程（返回值是子进程的pid），子进程会继承父进程的内存空间，堆是否会继承>？会继承，VA和PA都一样(显式拷贝)，但是如果子或父对malloc的东西进行了修改则OS才会进行深拷贝(==COW==)
 
 fork+wait：等待父/子结束之后再执行
 
@@ -175,7 +175,7 @@ execvp(myargs[0], myargs);
 
 Linux将exec和fork分开，因此可以在fork后exec前做其他事情，例如管道重定向中时，在fork之后将stdout(文件描述符为1)关闭，将另一个文件的设为1
 
-文件描述符fd：open()的返回值，012分别是stdin stdout stderr
+==文件描述符fd：open()的返回值，012分别是stdin stdout stderr==
 
 
 

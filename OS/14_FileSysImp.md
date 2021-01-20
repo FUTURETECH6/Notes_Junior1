@@ -82,11 +82,13 @@ On-disk structure has several control blocks
 * volume control block (e.g., superblock) contains volume details - per volume
     * total # of blocks, # of free blocks, block size, free block pointers, free FCB count, free FCB pointers
 * **directory structure** organizes the directories and files - per file system
-    * A list of (file names and associated inode numbers)
+    * A list of (file names and associated **inode** numbers)
 * **per-file file control block** contains many details about the file - per file
     * permissions, size, dates, data blocks or pointer to data blocks
 
-#### FCB
+#### ==FCB==
+
+==inode==
 
 **File Control Block**, Typically inclludes:
 
@@ -115,7 +117,7 @@ In-memory structures reflects and extends on-disk structures
 2. logical file system allocates a new FCB, i.e., inode structure
 3. appropriate directory is updated with the new file name and FCB, i.e., inode
 
-### Open & Close
+### Open & Close 
 
 **Open**
 
@@ -134,7 +136,7 @@ In-memory structures reflects and extends on-disk structures
 
 
 
-**Illustration of open**
+==**Illustration of open**==
 
 ![](assets/image-20201214144223972.png)
 
@@ -142,13 +144,26 @@ In-memory structures reflects and extends on-disk structures
 
 ![](assets/image-20201214144319866.png)
 
+==Steps:==
+
+1. 根据目录里的文件找到inode号
+2. 把磁盘上的inode读进来
+3. 根据inode里面的方式（连续、索引）找到data
+
+==课上的例子==
+
+1. 找目录的inode
+2. 从中找到目录inode指向的data
+3. 从中找到文件的inode
+4. 从中找到文件的data
+
 ## Mounting
 
 * Boot Block – series of sequential blocks containing a memory image of a program, call the boot loader, that locates and mounts the root partition; the partition contains the kernel; the boot loader locates, loads, and starts the kernel executing
 * In-memory mount table – external file systems must be mounted on devices, the mount table records the mount points, types of file systems mounted, and an access path to the desired file system
 * Unix – the in-memory mount table contains a pointer to the **superblock** of the file system on that device
 
-## Virtual FS
+## ==Virtual FS==(含义和数据结构)
 
 不是一种系统，而是一种实现方式，提供一套OO特性的API供不同的文件系统使用
 
@@ -160,15 +175,36 @@ In-memory structures reflects and extends on-disk structures
     * implementation can be one of many FS types, or network file system
     * OS can dispatches syscalls to appropriate FS implementation routines
 
-### VFS Ex
+```mermaid
+graph TB
+0["file-system interface"]
+1[VFS interface]
+2[local file sys<br />type1]
+3[local file sys<br />type2]
+4[remote file sys<br />type1]
+5((disk1))
+6((disk2))
+7((network))
+0 --> 1
+1 --> 2
+1 --> 3
+1 --> 4
+2 --> 5
+3 --> 6
+4 --> 7
+```
 
-* Linux defines four VFS object types:
-    * superblock: defines the file system type, size, status, and other metadata
-    * inode: contains metadata about a file (location, access mode, owners…)
-    * dentry: associates names to inodes, and the directory layout
-    * file: actual data of the file
+### Linux VFS
+
+* ==Linux defines four VFS object types:==
+    * **superblock**: defines the file system type, size, status, and other metadata
+    * ==**inode**: contains metadata about a file (location, access mode, owners…)==
+    * ==**dentry**: <u>associates names to inodes, and the directory layout</u>==
+    * **file**: actual data of the file
 * VFS defines set of operations on the objects that must be implemented
     * the set of operations is saved in a function table
+
+![](assets/image-20210118163337611.png)
 
 ```c
 struct file_operations {
@@ -217,11 +253,11 @@ struct file_operations {
 * Hash table: linear list with hash data structure to reduce search time
     * collisions are possible: two or more file names hash to the same location
 
-# Alloc Methods
-
-**of Disk Block**
+# ==Disk Block Alloc==
 
 ## Contiguous
+
+==文件size无限制==
 
 * Contiguous allocation: each file occupies set of contiguous blocks
     * best performance in most cases（就先std::vector比std::list快一样）
@@ -243,14 +279,14 @@ struct file_operations {
     * <u>each block contains pointer to next block, file ends at *nil* pointer</u>
     * blocks may be scattered anywhere on the disk (no external fragmentation, no compaction)
     * Disadvantages
-        * locating a file block can take many I/Os and disk seeks
+        * locating a file block can take many I/Os and disk seeks (==No Random Acces==)
         * Pointer size: 4 of 512 bytes are used for pointer - 0.78% space is wasted
         * Reliability: what about the pointer has corrupted!
     * Improvements: cluster the blocks - like 4 blocks
         * however, has internal fragmentation
 * Ex. FAT(File Allocation Table) of MS-DOS uses linked allocation
 
-## Indexed
+## ==Indexed (看Ex)==
 
 * Indexed allocation: <u>each file has its own index blocks of pointers to its data blocks</u>
     * index table provides random access to file data blocks
@@ -263,11 +299,11 @@ struct file_operations {
     * multiple-level index blocks (e.g., 2-level)
         * Ex.
             * <img src="assets/image-20201214204250036.png" style="zoom:33%;" />
-            * First 15 pointers are in inode
-            * Direct block: first 12 pointers
-            * Indirect block: next 3 pointers
-            * BlockSize=512B, PtrSize=4B
-            * Total Size = (12+128+128^2^+128^3^) × 512B
+                * First 15 pointers are in inode
+                * Direct block: first 12 pointers
+                * Indirect block: next 3 pointers
+                * BlockSize=512B, PtrSize=4B
+            * ==Total Size = (12+128+128^2^+128^3^) × 512B==
 
 ## Alloc Conclusion
 
@@ -289,30 +325,51 @@ struct file_operations {
 
 ## Bitmap
 
+* Use one bit for each block, track its allocation status
+    * relatively easy to find contiguous blocks
+    * bit map requires extra space
+        * example: block size = 4KB = 2^12^ bytes
+            disk size = 2^40^ bytes (1 terabyte)
+            n = 2^40^/2^12^ = 2^28^ bits (or 256 MB)
+            if clusters of 4 blocks -> 64MB of memory
+
+<img src="assets/image-20210118163919991.png" style="zoom: 67%;" />
+
 ## Linked
+
+* Keep free blocks in linked list
+    * no waste of space, just use the memory in the free block for pointers
+    * cannot get contiguous space easily
+    * Usually no need to traverse the entire list: return the first one
 
 
 
 # Performance
 
-To improve file system performance:
-• keeping data and metadata close together (机械硬盘)
-• use cache: separate section of main memory for frequently used
-blocks
-• use asynchronous writes, it can be buffered/cached, thus faster
-• cannot cache synchronous write, writes must hit disk before return
-• synchronous writes sometimes requested by apps or needed by
-OS
-• free-behind and read-ahead: techniques to optimize sequential
-access - remove the previous page from the buffer, read multiple
-pages ahead
-• Reads frequently slower than write: really?
+File system efficiency and performance dependent on:
 
-# Recovery
+* disk allocation and directory algorithms
+* types of data kept in file’s directory entry
+* pre-allocation or as-needed allocation of metadata structures
+* fixed-size or varying-size data structures
+
+
+
+To **improve** file system performance:
+
+* keeping data and metadata close together (机械硬盘)
+* use cache: separate section of main memory for frequently used blocks
+* use **asynchronous writes**, it can be <u>buffered</u>/cached, thus faster
+    * cannot cache synchronous write, writes must hit disk before return
+    * synchronous writes sometimes requested by apps or needed by OS
+* **free-behind and read-ahead**: techniques to optimize <u>sequential access</u> - remove the previous page from the buffer, read multiple pages ahead
+* Reads frequently slower than write: really?
+
+# ~~Recovery~~
 
 并不是保持数据不丢失，而是保证metadata
 
-# Example
+# ~~Example~~
 
 inode struct:
 

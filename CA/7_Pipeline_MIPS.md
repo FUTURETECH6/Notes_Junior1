@@ -1,3 +1,20 @@
+[TOC]
+
+**==Latency & Ini/Repeat Interval==**
+
+* **Latency**
+    * the number of intervening cycles between an instruction that produces a result and an instruction that uses the result？不是同一个inst里面的吗？还是说这里的inst是微指令
+    * ld/sd指令是针对被存储的值而言的，而不是针对基址寄存器
+* **Initiation/Repeat Interval**
+    * the number of cycles that must elapse between issuing two operations of a given type
+    * 
+
+![image-20210116160504079](assets/image-20210116160504079.png)
+
+Essentially, pipeline **latency** is 1 cycle less than the depth of the execution pipeline, which is the number of stages from the **EX stage** to the stage that produces the result 
+
+# 👇不考的东西
+
 # Multi-cycle Stage
 
 ## FP Pipeline

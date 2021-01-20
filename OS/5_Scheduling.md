@@ -5,7 +5,7 @@
 ## Burst
 
 * Process execution consists of a cycle of CPU execution and I/O wait
-    * [CPU burst and I/O burst](https://www.quora.com/What-is-meant-by-CPU-Burst-and-I-O-Burst) alternate(交替)
+    * [CPU burst and I/O burst](https://www.quora.com/What-is-meant-by-CPU-Burst-and-I-O-Burst) alternate (交替)
     * CPU burst distribution varies greatly from process to process, and from computer to computer, but follows similar curves
 * Maximum CPU utilization obtained with multiprogramming
     * CPU scheduler selects another process when current one is in I/O burst
@@ -17,8 +17,8 @@
     2. switches from running to ready state (e.g., when an interrupt occurs)
     3. switches from waiting to ready (e.g., at completion of I/O)
     4. terminates 
-* Scheduling under condition 1 and 4 only is **nonpreemptive**
-    * 因为这两种情况下，进程本来就不会再运行了
+* ==Scheduling under condition 1 and 4 only is **nonpreemptive**==
+    * 因为这两种情况下，进程本来就不会再运行了 
     * once the CPU has been allocated to a process, the process keeps it until terminates or waiting for I/O
     * also called cooperative scheduling
 * **Preemptive** scheduling schedules process also in condition 2 and 3
@@ -28,6 +28,22 @@
     * waiting either the system call or I/O block to complete
         * 例如，可抢占式的，P1调用了syscallX（正在执行），如果一个中断调用了P2（P1P2均为U态），P2又调用syscallX，如果前一次syscallX（这时候还没执行完）修改过global data（内核只有一份进程）了，则就可能会有问题
     * 现代内核都是抢占式的
+
+## Kernel Preemption
+
+* Preemption also affects the OS kernel design
+    * kernel states will be inconsistent if preempted when updating shared data
+    * i.e., kernel is serving a system call when an interrupt happens
+* Two solutions:
+    * waiting either the system call to complete or I/O block
+        * ==kernel is nonpreemptive (still a preemptive scheduling for processes!)==
+            * ==内核是非抢占的用户态仍可能是抢占的==
+    * disable kernel preemption when updating shared data
+        * recent Linux kernel takes this approach:
+            * Linux supports SMP
+            * shared data are protected by kernel synchronization
+            * disable kernel preemption when in kernel synchronization
+            * turned a non-preemptive SMP kernel into a preemptive kernel
 
 ## Dispatcher
 
@@ -39,18 +55,19 @@ The dispatcher is the module that <u>gives control of the CPU’s core to the pr
 
 Dispatch latency: the time it takes for the dispatcher to stop one process and start another running
 
-# Scheduling criteria
+# ==Scheduling criteria==
 
-* CPU utilization : percentage of CPU being busy 🔼​​
-* Throughput: # of processes that complete execution per time unit 🔼
-* Turnaround time: the time to execute a particular process <u>from submission(开始) to completion</u> 🔽
+* **CPU utilization**: percentage of CPU being busy 🔼
+* **Throughput**: # of processes that complete execution per time unit 🔼
+* **Turnaround time**（交互时间）: the time to execute a particular process <u>from submission(开始) to completion</u> 🔽
     * 包括了waiting time和burst time
     * Turnaround Time = Completion Time – Arrival Time
         * Arrival Time: Time at which the process arrives <u>in the ready queue</u>.
         * Completion Time: Time at which process <u>completes</u> its execution.
-* Waiting time: the total time spent waiting in the ready queue 🔽
+* **Waiting time**: the total time spent waiting in the ready queue 🔽
     * Waiting Time = Turn Around Time – Burst Time
         * Burst Time: Time required by a process for <u>CPU execution</u>.
+    * <u>调度算法的评估一般是考虑这个</u>
 * Response time: the time it takes from when <u>a request was submitted until the first response is produced</u> 🔽
     * the time it takes to start responding
 
@@ -58,16 +75,19 @@ Dispatch latency: the time it takes for the dispatcher to stop one process and s
 
 **Other Optmization Criteria**
 
-* Often consider avg val, but sometimes need the max/min val
-    * for interactive system, minimize <u>variance</u> in response time
+* often consider average val
+* but sometimes need the max/min val, real-time OS
+* for interactive system, minimize <u>variance</u> in response time，用户体验才好
 
-怎么算看作业
+==怎么算看作业==
 
 # Scheduling algorithms
 
+==看作业==
+
 * First-come, first-served scheduling (FCFS)
     * nonpreemptive
-* Shortest-job-first scheduling (SJF)
+* Shortest-job-first scheduling (SJF)（弄懂就好了）
     * optimal: minimum average waiting time
     * preemptive or nonpreemptive (depends on algorithm)
         * preemptive: reschedule when a process <u>arrives</u> (因此只有新来的能抢别人)
@@ -84,7 +104,7 @@ Dispatch latency: the time it takes for the dispatcher to stop one process and s
 * Multilevel feedback queue scheduling
     * 将进程先后进入不同的queue
 
-# Thread scheduling
+# ~~Thread scheduling~~
 
 前面都只考虑单线程进程。
 
@@ -103,7 +123,7 @@ Dispatch latency: the time it takes for the dispatcher to stop one process and s
 
 
 
-## Pthread
+## ~~Pthread~~
 
 * API allows specifying either PCS or SCS during thread creation
     * pthread_attr_set/getscope is the API
@@ -149,17 +169,17 @@ If SMP, need to keep all CPUs loaded for efficiency
 * Soft affinity – the operating system attempts to keep a thread running on the same processor, but <u>no guarantees</u>.
 * Hard affinity – allows a process to <u>specify</u> a set of processors it may run on. (指定不允许转移)
 
-### NUMA-aware
+### ==NUMA-aware==
 
 If the operating system is NUMA-aware, it will assign memory closes to the CPU the thread is running on.
 
-## CMT
+## ~~CMT~~
 
 chip multithreading
 
 如果有两套regs则只有ALU需要复用
 
-## Real-Time CPU Scheduling
+## ~~Real-Time CPU Scheduling~~
 
 * Can present obvious challenges
     * Soft real-time systems – <u>Critical</u> real-time tasks have the <u>highest priority</u>, but <u>no guarantee</u> as to when tasks will be scheduled
@@ -167,7 +187,40 @@ chip multithreading
 
 # Operating systems examples
 
-# Mars
+## Linnux
+
+### CFS
+
+* Completely Fair Scheduler (CFS)
+* Scheduling classes
+    * Each has specific priority
+    * Scheduler picks highest priority task in highest scheduling class
+    * Rather than quantum based on fixed time allotments, based on proportion of CPU time (nice value)
+        * Less nice value will get high proportion of CPU time
+    * 2 scheduling classes included, others can be added
+        * default
+        * real-time
+
+### Scheduling domain
+
+* Linux supports load balancing, but is also NUMA-aware.
+* **Scheduling domain** is a set of CPU cores that can be balanced against one another.
+* Domains are organized by what they share (i.e. cache memory.) Goal is to **keep threads from** migrating between domains.
+* <img src="assets/image-20210117173227231.png" style="zoom:50%;" />
+
+## Windows
+
+* Windows uses priority-based preemptive scheduling
+    * Highest-priority thread runs next
+    * Dispatcher is scheduler
+* Thread runs until (1) blocks, (2) uses time slice, (3) preempted by higher-priority thread
+    * Real-time threads can preempt non-real-time
+* **32-level** priority scheme: **Variable class** is 1-15, **real-time class** is 16-31
+* Priority 0 is memory-management thread
+* Queue for each priority
+* If no run-able thread, runs idle thread
+
+# ~~Mars~~
 
 tracing：记录基本块的初始PC地址即可
 

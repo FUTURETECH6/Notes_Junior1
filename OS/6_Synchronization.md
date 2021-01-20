@@ -6,7 +6,7 @@
 
 之前那个双线程运行`counter++`结果不对的demo就是个例子
 
-**Race Condition**
+==**Race Condition**==
 
 Several processes (or threads) access and manipulate the same data concurrently and the <u>outcome</u> of the execution depends on the particular <u>order</u> in which the access takes place, is called a race condition
 
@@ -40,7 +40,7 @@ Several processes (or threads) access and manipulate the same data concurrently 
 
 **内核中的race condition的例子**
 
-fork需要用next_available_pid来找出${字面意思}，如果两个进程同时调用了fork，那么他们的子进程可能有同一个pid（如果没有Mutual Exclusion）
+fork需要用next_available_pid来找出\$\{字面意思\}，如果两个进程同时调用了fork，那么他们的子进程可能有同一个pid（如果没有Mutual Exclusion）
 
 
 
@@ -74,7 +74,9 @@ Kernel preemption can occur
 
 
 
-## Solution to CS, 3 Reqs
+## Solution to CS: 3 Reqs
+
+==看看==
 
 * Mutual Exclusion 互斥
     * only one process can execute in the critical section
@@ -88,7 +90,7 @@ Kernel preemption can occur
 
 
 
-# Peterson's Sol
+# Peterson's Sol（感觉不考）
 
 ![image-20201030155036953](assets/image-20201030155036953.png)
 
@@ -152,7 +154,7 @@ Perceived order:
 3. Atomic variables
     * 原子性的自增变量
 
-## Memory barriers
+### Memory barriers
 
 * Memory model are the memory guarantees a computer architecture makes to application programs.
 * Memory models may be either:
@@ -172,9 +174,11 @@ memory_barrier();
 flag = true;
 ```
 
-## ==Hardware instructions==
+### ==Hardware instructions==
 
-### Test-and-set
+==要求本身的操作是原子的。虽然demo中用了多条C指令，但实际上CPU（hardware）中一条指令就能解决了==
+
+#### Test-and-set
 
 ```c
 // Def
@@ -195,7 +199,7 @@ do {
 
 第一个进入的，由于返回FALSE，所以进入CS，由于在进入过程中顺便把lock置位了，所以其他的不能进入，直到第一个从CS出来然后把lock复位
 
-### Compare-and-swap
+#### Compare-and-swap
 
 ```C
 // Def
@@ -219,7 +223,7 @@ while (true) {
 
 第一个进入cmp&swap的进程，返回exp_val，由于返回值==exp_val，所以进入CS。由于cmp&swap过程中被改为new_val，因此1. cmp&swap中val不会被改为new_val；2. cmp&swap的返回值是new_val!=exp_val；综合12，其他进程全部死循环
 
-## Atomic variables
+#### Atomic variables
 
 Typically, <u>instructions</u> such as compare-and-swap are used as <u>building blocks</u> for other synchronization tools.
 
@@ -238,6 +242,8 @@ void increment(atomic_int *v) {
 ```
 
 ## Mutex Lock
+
+==用hardware inst构建的上层API==
 
 Mutex is the abbr of mutal exclusion，所以意即互斥锁
 
@@ -305,6 +311,8 @@ void unlock() {
 
 ## Semaphore
 
+==用于多资源的共享，而不仅是0和1。<u>value表示可用资源的数量，不能为负。</u>（用另外的方式实现可以为负，那表示的意义就是多少个进程正在等待这个资源）==
+
 * Semaphore S is an integer variable
   
     * e.g., to <u>represent how many units of a particular resource is available</u>
@@ -334,7 +342,7 @@ void unlock() {
 
 
 
-**Type**
+==**Type**==
 
 * **Counting semaphore**: allowing arbitrary resource count，用于计数
 
@@ -346,7 +354,7 @@ void unlock() {
         Semaphore mutex;  // initialized to 1
         do {
             wait(mutex);
-            // critical  
+            // critical
             signal(mutex);
             // remainder section
         } while (TRUE);
@@ -378,6 +386,10 @@ void signal(semaphore *S) {
     }
 }
 ```
+
+
+
+### ==课本的实现==
 
 
 

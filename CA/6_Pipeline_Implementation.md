@@ -2,6 +2,10 @@
 
 # MIPS Simple Imp
 
+==另外一种基础的实现看复习PPT的slide50 \~ slide79==
+
+
+
 ![](assets/MIPS_Simple_DP.png)
 
 ## 5 Stages
@@ -99,14 +103,45 @@ Brief description, 忽略了寄存器和控制信号的流水化
 
 # MIPS Basic
 
-流水线事件（包括寄存器的流水化）
+==流水线事件（包括寄存器的流水化）==
 
 ![](assets/image-20201111102652119.png)
 ![](assets/image-20201111102700055.png)
+
+==不是所有指令都需要完整五个周期，有些指令在某些周期不干活，有些分支指令甚至不需要五个周期==
+
+
 
 # MIPS Ctrl
 
 Issue：发射，将指令从ID移入EX的过程，用以控制流水线的阻塞
 
+## Fwd
+
+3 Fwd
+
+* EX/ME.ALUout -> ALUin (1拍，相邻指令)
+* ME/WB.ALUout -> ALUin (2拍，中间要么stall一拍要么隔一个指令)
+* ME/WB.[LDMB](Load memory buffer register) -> ALUin (2拍，中间要么stall一拍要么隔一个指令)
+
+<u>光靠fwd无法解决所有data hazard</u>
+
+![](assets/image-20210116153444616.png)
+
+
+
 # Branch
 
+看第五章的ppt的控制冒险部分
+
+# Exceptions
+
+![](assets/image-20210116155543833.png)
+
+**Pipeline with Exceptions**
+
+![Pipeline with Exceptions](assets/image-20210116155741504.png)
+
+**Exception in pipeline**
+
+![](assets/image-20210116160002678.png)

@@ -25,7 +25,7 @@ server takes tasks from the FIFO buffer and performs them;
 #### Choosing Response Time
 
 * Transaction
-    * an interaction between user and comp 
+    * an interaction between user and comp
 * Transaction Time consists of
     * Entry time: the time for the user to enter the command
     * System response time: the time between command entered and complete response displayed
@@ -33,7 +33,7 @@ server takes tasks from the FIFO buffer and performs them;
 
 ## TPC
 
-* Conducted by 
+* Conducted by
     * Transaction-Processing Council
     * OLTP for On-Line Transaction Processing
 * I/O rate: the number of disk accesses per second;
@@ -79,7 +79,7 @@ server takes tasks from the FIFO buffer and performs them;
     * This flow-balanced state is <u>necessary but not sufficient</u> for steady state
     * 通常的判定：The system has reached steady state if the system has been observed for a <u>sufficiently long time</u> and <u>mean</u> waiting times stabilize
 
-## Little's Law
+## ==Little's Law==
 
 * Assumptions
     * multiple independent I/O requests in <u>equilibrium</u>: input rate = output rate; 只适用于平衡系统
@@ -89,16 +89,16 @@ server takes tasks from the FIFO buffer and performs them;
 
 * Param
     * Time~observe~: time period for observing the system
-    * Number~tasks~: number of completed tasks during observation
-    * Time~accumulated~: sum of the times each task spends in the system during observation
+    * Number~tasks~: number of completed tasks *during observation*
+    * Time~accumulated~: <u>sum</u> of the times <u>each task</u> spends in the system during observation
 
-
+得到的步骤：
 
 1. Arrival rate = Number~tasks~ / Time~observe~
 2. Mean response time = Time~accumulated~ / Number~tasks~
 3. Mean number of tasks in system = Time~accumulated~ / Time~observe~
 
-## Single-Server Model
+## ~~Single-Server Model~~
 
 ![](assets/image-20210104101105418.png)
 
@@ -125,20 +125,21 @@ server takes tasks from the FIFO buffer and performs them;
 **Server Utilization / traffic intensity**
 
 * Server utilization
-    * the mean <u>number of tasks</u> being serviced divided by the service rate 
+    * the mean <u>number of tasks</u> being serviced divided by the service rate
 * Service rate = 1 / Time~server~
-* <u>Server utilization</u>
-    \\	<u>=Arrival rate x Time~server~</u> (little’s law again)
+* ==<u>Server utilization</u>==
+    ==\\	<u>=Arrival rate x Time~server~</u> (little’s law again)==
     * Example
         * an I/O sys with a single disk gets on average 50 I/O requests per sec; 10 ms on avg to service an I/O request;
         * server utilization 
-            \\	=arrival rate x timeserver
-            \\	=50 x 0.01 = 0.5 = 1/2
+            \\	= arrival rate x timeserver
+            \\	= 50 x 0.01 = 0.5 = 1/2
         * Could handle 100 tasks/sec, but only 50
+    * 因此：arrival_rate~max~ = 1 / t~ser~
 
 ## Queue
 
-### Queue Discipline
+### ==Queue Discipline==
 
 How the queue delivers tasks to server
 

@@ -2,11 +2,16 @@
 
 # File Concept
 
-## File Attributes
+## File Attributes（proc）
 
 * Name – only information kept in human-readable form
 * Identifier – unique tag (number) identifies file within file system
 * Type – needed for systems that support different types
+    *  There are different types of file:
+        * data: numeric, character, binary
+        * program
+        * ==special one: proc file system - use file-system interface to retrieve system information==
+            * 为了将内核的信息暴露给用户态程序，并不是真正的文件
 * Location – pointer to file location on device
 * Size – current file size
 * Protection – controls who can do reading, writing, executing
@@ -16,7 +21,7 @@
 
 
 
-## File Operations
+## File Operations（hardlink）
 
 * OS provides file operations to
     * **create**:
@@ -25,12 +30,11 @@
             * metadata存在一起的，且总数有限
     * **open**: most operations need to file to be opened first
         * return a handler(file descriptor) for other operations
-    * **read/write**: need to maintain a pointer
+    * **read/write**: need to maintain a pointer (per-process)
     * **reposition within file**: seek (offset from文件开头的位置，是文件内部的指针)
     * **delete**
         * Release file space
-        * Hardlink: <u>maintain a counter</u> - delete the file until the
-            last link is deleted
+        * ==Hardlink: <u>maintain a counter</u> - delete the file until the last link is deleted==
     * **truncate**: delete a file but maintains its attributes
 * Other operations can be implemented using these ones
     * Copying: create and read/write
@@ -43,8 +47,8 @@
     * To avoid the searching, OS maintains a table - **open-file table** contains information about all open files
     * Then following operation is specified via an index to the table - no searching is required
 * For os that several processes may open the file simultaneously
-    * Per-process table: current location pointer, access rights
-    * System-wide table: location on the disk …
+    * ==Per-process table: current location pointer, access rights==
+    * ==System-wide table: location on the disk …==
 
 
 
@@ -122,13 +126,15 @@ Usually user programs are responsible for identifying file structure
 * Disk can be subdivided into partitions
     * partitions also known as minidisks, slices
     * different partitions can have different file systems
-        * a partition containing file system is known as a **volume**
+        * a partition <u>containing file system</u> is known as a **volume**
         * each volume tracks file system info in the volume’s table of contents
         * a file system can be general purpose or special purpose
     * disk or partition can be used raw (without a file system)
         * applications such as database prefer raw disks
 
 ## Directory Basis
+
+==存储文件名和inode之间的映射关系==
 
 **Operations Performed on Directory**
 
@@ -154,7 +160,7 @@ Usually user programs are responsible for identifying file structure
 
 ## Diretctory Methods
 
-### Single-Level
+### ==Single-Level==(感觉要考)
 
 A single directory for all users
 
@@ -170,8 +176,7 @@ Separate directory for <u>each user</u>
 * different user can have the same name for different files
     * Each user has his own user file directory (UFD), it is in the master file directory (MFD)
 * efficient to search, still cannot group files
-* How to share files between different users, and how to share the
-    system files?
+* How to share files between different users, and how to share the system files?
 
 <img src="assets/image-20201207193049024.png" style="zoom:33%;" />
 
@@ -208,9 +213,9 @@ Organize directories into acyclic-graphs
 
 
 
-**Soft & Hard Link**
+==**Soft & Hard Link**==
 
-Basically hard link <u>increases reference count</u> of a location while soft links work as a shortcut (like in Windows)
+Basically hard link <u>increases reference count</u> of a location while soft links work as a shortcut (like in Windows)删掉源文件之后hardlink还能访问但是symbolic不行（inaccessible）
 
 https://www.geeksforgeeks.org/soft-hard-links-unixlinux/
 
@@ -232,12 +237,32 @@ Solution
 
 # Mounting
 
-* <u>A file system must be mounted before it can be accessed</u>
+* ==<u>A file system must be mounted before it can be accessed</u>==
     * mounting link a **file system** to the system, usually forms a single name space
     * the location of the file system being mounted is call the mount point
     * a mounted file system makes the <u>old directory at the mount point **invisible**</u>
     * <img src="assets/image-20201214162435738.png" style="zoom:25%;" /> $\Longrightarrow$ <img src="assets/image-20201214162456088.png" style="zoom:25%;" />
         * 本来的bill和fred变成invisible了
+
+==Linux指令==
+
+```bash
+NAME
+       mount - mount a filesystem
+
+SYNOPSIS
+       mount [-l|-h|-V]
+
+       mount -a [-fFnrsvw] [-t fstype] [-O optlist]
+
+       mount [-fnrsvw] [-o options] device|dir
+
+       mount [-fnrsvw] [-t fstype] [-o options] device dir
+# -t 表示类型, vfat...
+# device是要挂载的partition(sda1)而不是device(sda)，dir是要mount到的目录
+```
+
+
 
 # File Sharing
 
@@ -281,17 +306,34 @@ Access Control List
 * Three modes of access: **read**, **write**, **execute** (encoded in three bits **RWX**，chmod也是这个顺序)
 * Three classes of users: **owner**, **group**, and **others** (chmod按这个顺序来)
 * 3 × 3 = 9 bits
-    * Ex. `chmod 761`: owner：RWX，group：RW，other：X
+    * ==Ex. `chmod 761`: owner：RWX，group：RW，other：X==
 
-### ACL in practice
+
 
 ```zsh
-
+# ulysses @ JVAIOSX12 in ~/rrshareweb [16:06:22]
+$ ll
+total 21M
+drwxr-xr-x 2 ulysses ulysses 4.0K Dec 30 22:21 conf
+drwxr-xr-x 2 ulysses ulysses 4.0K Aug  4 07:57 data
+-rwxr-xr-x 1 ulysses ulysses 581K Aug 30  2018 p4pclient
+-rwxr--r-- 1 ulysses ulysses  306 Jun 16  2018 readme.txt
+-rwxr-xr-x 1 ulysses ulysses  20M Aug  4 07:52 rrshareweb
+drwxr-xr-x 3 ulysses ulysses 4.0K Jun 11  2020 web
 ```
 
-
+第二行表示“number of hard links to the file”
 
 # File & Dir in Practice
+
+## ==缩写考点==
+
+```
+boot 存image（实验中的
+etc 存cfg
+proc 存系统info
+var 它代表的是variable，就是他这个var下面是放那些系统里面多变的信息非常经常变化的。
+```
 
 ## Open
 
@@ -321,7 +363,9 @@ SYNOPSIS
 
 
 
-Ex. of cat
+### ==Ex. of cat==
+
+==fd=0, 1, 2分别会被stdin, stdout, stderr占用==，所以从3开始
 
 ```zsh
 $ echo hello > foo

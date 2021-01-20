@@ -23,7 +23,7 @@ For `C=A+B`
 | add    | store C     | store r2, C   | add r3, r1, r2 |
 | pop C  |             |               | store r3, C    |
 
-### stack architecture
+### ~~stack architecture~~
 
 所有数据都存在内存
 
@@ -33,7 +33,7 @@ For `C=A+B`
     * first operand removed from stack, second op <u>replaced</u> by the result
 4. Pop C: <img src="assets/image-20201012110944442.png" style="zoom:33%;" />
 
-### accumulator architecture
+### ~~accumulator architecture~~
 
 * one implicit operand: the accumulator (这里是已经读进来作为accumulator的A)
 * one explicit operand: mem location (这里是还在内存里的B)
@@ -112,7 +112,7 @@ general-purpose register architecture
 
 ## Control flow instructions
 
-### Addressing
+### ==Addressing==
 
 ![](assets/image-20201128165753779.png)
 

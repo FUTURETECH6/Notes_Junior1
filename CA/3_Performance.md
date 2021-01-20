@@ -92,7 +92,7 @@ $$
 $$
 {
     \begin{array}{}
-        \text{MTTF}_\text{pair} & = \frac{\text{MTTF}_\text{power}/2}{\text{MTTR}_\text{power}/\text{MTTF}_\text{power}} = \frac{\text{MTTF}_\text{power}^2}{2 \times \text{MTTR}_\text{power}} 
+        \text{MTTF}_\text{pair} & = {\color{red}\frac{\text{MTTF}_\text{power}/2}{\text{MTTR}_\text{power}/\text{MTTF}_\text{power}} = \frac{\text{MTTF}_\text{power}^2}{2 \times \text{MTTR}_\text{power}} }\left({分子是某一电源发生故障的概率\\分母是修复第一个故障时发生第二个故障的概率}\right)
         \\
         &= \frac{200,000^2}{2\times24} = 833,333,333\text{ hours}
         \\
@@ -104,6 +104,8 @@ $$
 
 
 # Measure Performance
+
+==CPI==
 
 * Execution/response time
     * the time between the start and the completion of an event
@@ -136,24 +138,26 @@ $$
 
 ## Focus on the Common Case
 
-### **Amdahl‘s Law** 
+### ==**Amdahl‘s Law**== 
 
 ref [chap1](./1_Intro.md)
 
-> S is overall speedup, s is enhanced speedup, p is enhanced partiton
+> S is overall ==speedup==, s is enhanced speedup, p is enhanced partiton
 
 $\large S_{\text {latency }}(s)=\frac{1}{(1-p)+\frac{p}{s}}$
 
 $\left\{\begin{array}{l}S_{\text {latency }}(s) \leq \frac{1}{1-p} \\ \lim _{s \rightarrow \infty} S_{\text {latency }}(s)=\frac{1}{1-p}\end{array}\right.$
 
+==（极限不考）==
+
 👆speedup是指加速的倍速，没有单位 ==新的/旧的 而不是 新的/旧的-1==
 
-
+记忆：$\large\frac{1}{s'} = (1-p) + p \times \frac{1}{s} \Longleftarrow t'_{sys} = (1-p)t + \frac{p}{s}t$ (t is overall time of old sys)
 
 1. Fraction~enhanced~: 
 	* e.g., 20/60 if 20 seconds out of a 60-second program to enhance
 2. Speedup~enhanced~:
-  * e.g., 5/2 if enhanced to 2 seconds while originally 5 seconds
+    * e.g., 5/2 if enhanced to 2 seconds while originally 5 seconds
 
 $$
 \begin{array}{rcl}
@@ -163,7 +167,8 @@ $$
     \\
     \text { Speedup }_{\text {overall }}
     &=&
-    \frac{\text { Execution time }_{\text {old }}}{\text { Execution time }_{\text {new }}}=\frac{1}{\left(1-\text { Fraction }_{\text {enhanced }}\right)+\frac{\text { Fraction }_{\text {enhanced }}}{\text { Speedup }_{\text {enhanced }}}}
+    {\color{red}\frac{\text { Execution time }_{\text {old }}}{\text { Execution time }_{\text {new }}}}
+    =\frac{1}{\left(1-\text { Fraction }_{\text {enhanced }}\right)+\frac{\text { Fraction }_{\text {enhanced }}}{\text { Speedup }_{\text {enhanced }}}}
 \end{array}
 $$
 
@@ -205,3 +210,11 @@ $$
 
 $\Large \rm \frac{秒数}{程序}=\frac{指令数}{程序} \times \frac{时钟周期数}{指令数}(CPI) \times \frac{秒数}{时钟周期数}(clk\_time)$
 
+==CPI = CPU clock cycles for a program Instruction count==
+
+==Clock cycles = IC x CPI==
+
+==CPU time = Clock cycles x Clock cycle time==
+		    === IC x CPI x Clock cycle time==
+
+![](assets/image-20210115181303104.png)

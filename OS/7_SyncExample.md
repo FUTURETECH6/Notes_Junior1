@@ -1,6 +1,6 @@
 [TOC]
 
-# 3P
+# 3 Sync Problems
 
 **Semaphore**
 
@@ -21,7 +21,29 @@ void signal(semaphore *S) {
 }
 ```
 
-## Bounded-buffer problem
+## ==Bounded-buffer problem==
+
+过桥问题：一个餐厅二十个人吃饭，只有一个门，一次进一个人。只需要考虑producer不需要考虑consumer
+
+```c
+# empty init to be 20， 用以对有N值的信号量同步
+# mutex init to be 1， 用以对小的二值信号量的同步
+# full init to 0
+
+// producer
+do {
+    // produce an item
+    ...
+    wait(empty);  // empty->val--;
+    wait(mutex);
+    // add the item to the buffer，进门
+    ...
+    signal(mutex);
+    signal(full);  // full->val++;
+} while (TRUE)
+```
+
+
 
 (procedurer-cosumer problem)
 
@@ -42,6 +64,9 @@ https://www.studytonight.com/operating-system/bounded-buffer#
         * 空的buffer的个数
 
 ```c
+/*
+mutex = 1; full = 0; empty = N;
+*/
 // producer
 do {
     // produce an item
@@ -102,6 +127,9 @@ Solution:
 * integer `read_count` initialized to 0
 
 ```c
+/*
+mutex = 1; wrt = 1; read_count = 0;
+*/
 // writer
 do {
     wait(wrt);
