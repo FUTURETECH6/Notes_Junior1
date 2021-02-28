@@ -137,7 +137,7 @@ server takes tasks from the FIFO buffer and performs them;
         * Could handle 100 tasks/sec, but only 50
     * 因此：arrival_rate~max~ = 1 / t~ser~
 
-## Queue
+## ~~Queue~~
 
 ### ==Queue Discipline==
 

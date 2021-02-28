@@ -162,7 +162,11 @@ sub $2, $6, $14
 
 ### Control Dependence
 
-。。。。
+– An instruction that is control dependent on its branch cannot be moved *before* the branch so that its execution is *no longer controlled* by the branch.
+
+ 
+
+– An instruction that is not control dependent on its branch cannot be moved *after* the branch so that its execution *is controlled* by the branch.
 
 ## Pipeline hazard
 
@@ -235,7 +239,7 @@ sub $2, $6, $14
 * 实现简单（软硬件
 * 分支代价是固定的，无法通过软件优化
 * <img src="assets/image-20201102103607971.png" style="zoom:50%;" />
-    * 分支后续指令包括了taken和untaken的情况，其中只有taken才会有两个IF
+    * 分支后续指令包括了taken和untaken的情况，~~其中只有taken才会有两个IF~~知道了跳转目标后都得refetch，所以都会有两个fetch
         * 由于在分支指令的ID之前不知道它是分支指令，所以还是会执行Untaken情况下的后一条指令的IF
         * 由于在分支指令的EX之前不知道他跳不跳转，所以先IF
             * ==等等，这是怎么在EX开始之前就知道分支跳不跳转的？不知道为啥急着IF==

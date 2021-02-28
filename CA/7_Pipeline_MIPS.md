@@ -1,5 +1,7 @@
 [TOC]
 
+![](assets/image-20210122160122064.png)
+
 **==Latency & Ini/Repeat Interval==**
 
 * **Latency**
@@ -7,7 +9,6 @@
     * ld/sd指令是针对被存储的值而言的，而不是针对基址寄存器
 * **Initiation/Repeat Interval**
     * the number of cycles that must elapse between issuing two operations of a given type
-    * 
 
 ![image-20210116160504079](assets/image-20210116160504079.png)
 

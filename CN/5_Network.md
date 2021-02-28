@@ -88,6 +88,7 @@ DV算法存在的问题：对于好消息的反应很迅速，但是对于坏消
 
 * If C routes through B to get to A:
     * C tells B its(指的是C自己) distance to A is infinite
+    * C告诉D自己到A的距离是？
 * will this completely solve count to infinity problem?
     * No
     * Can you give an example?
@@ -268,11 +269,10 @@ Top 10 principles for the Internet
 * **Differentiated service**(8):
     * **Type of service** (past): 3 bits for priority, 3 bits for Delay, Throughput, and Reliability(最关心三个中的哪一个), and 2 unused.
     * **Differentiated services** (now): 6 for service class, 2 for congestion(拥塞) (e.g. ECN).
-* **Total length**(16) : the length of header and data. The maximum is 65,535 bytes.
+    * **Total length**(16) : the length of header and data. The maximum is 65,535 bytes.（并不是单个数据报的长度，单个数据报的长度会受到MTU的影响
 * **Identification**(16) : datagram ID. All fragments belong to same ID
-* **DF**(1) : Don't Fragment，用在PathMTU discovery中
-* **MF**(1) : More Fragment. <u>The flag is set for all fragments except</u>
-    <u>the last</u>
+* **DF**(1) : Don't Fragment，用在PathMTU discovery中（仅当为0时才能分片
+* **MF**(1) : More Fragment. <u>The flag is set for all fragments except the last（1表示后面还有分片）</u>
 * **Fragment offset**(13) : to tell where in the current datagram this fragment belongs
     * ==一个frag有8个bytes==
     * 因此每个datagram最多8192段
@@ -281,6 +281,7 @@ Top 10 principles for the Internet
 * **Protocol**(8) : which transport process to give this datagram to. (http://www.iana.org/assignments/protocol numbers)
 * **Header checksum**(16) : to verify the header only
 * **Source and destination address**(32 each) : to indicate the network number and host number.
+* <u>==首部长度、总长度、片偏移的单位分别是4B、1B、8B==</u>
 * **Options**
     * ![](assets/image-20201124201101453.png)
 

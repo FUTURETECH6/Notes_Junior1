@@ -309,8 +309,10 @@ lw r2, 512(r0)	# cache[0]=r2, write_buf=r1(not to mem)
 lw r3, 0(r0)	# cache miss, read from mem, but r1 still in write_buf, ERROR
 ```
 
-* Reduce miss penalty
+* 👍Reduce miss penalty
 * not simply stall read miss until write buffer empties, check the contents of write buffer, let the read miss continue <u>if no conflicts with write buffer</u> & memory system is available
+
+> P115: Giving priority to read misses over writes to reduce miss penalty—A write buffer is a good place to implement this optimization. Write buffers create hazards because they hold the updated value of a location needed on a read miss— that is, a read-after-write hazard through memory. One solution is to check the contents of the write buffer on a read miss. <u>If there are no conflicts, and if the memory system is available</u>, sending the read before the writes reduces the miss penalty. Most processors give reads priority over writes. This choice has little effect on power consumption.
 
 #### Avoid address translation during indexing cache
 

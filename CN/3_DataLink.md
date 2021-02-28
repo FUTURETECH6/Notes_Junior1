@@ -382,7 +382,7 @@ Utlization = NT~frame~/(2T~propagation~+T~frame~)
     * 同理
     * ![](assets/image-20201020112442501.png)
 
-### piggybacking
+### piggybacking\
 
 捎带确认，暂时延缓确认以便<u>将Ack信息搭载在下一个出境的dataFrame上</u>的技术
 
@@ -413,7 +413,7 @@ windows size要求：
 
 # Example Data Link Protocols
 
-**历年卷的题目 1**
+**历年卷的题目 1**、
 
 1) 3, 012
 

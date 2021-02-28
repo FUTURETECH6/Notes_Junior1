@@ -44,7 +44,7 @@
 
 Transition function: <img src="assets/image-20201024160408047.png" style="zoom:25%;" />
 
-Consider the string aabba:
+Consider the string "aabba":
 $$
 q_{0} \xrightarrow a q_{0} \xrightarrow a q_{0} \xrightarrow b q_{1} \xrightarrow b q_{0} \xrightarrow a q_{0}
 $$
@@ -268,7 +268,7 @@ To show a language is Regular
 
 
 
-**Example**. 证明：已知$L \sube \Sigma^*=\{0, 1, ..., 9\}^*是可以被2或3整除的非负整数的十进制表示的集合（前面没有多余0）$，求证明L是正则的。
+**Example**. 证明：已知$L \sube \Sigma^*=\{0, 1, ..., 9\}^*$是可以被2或3整除的非负整数的十进制表示的集合（前面没有多余0）​，求证明L是正则的。
 
 * $L_1 = 0 \cup \{1, 2, ..., 9\}\Sigma^*$为非负整数集合，正则
 * $L_2 = L_1 \cap \Sigma^*\{0, 2, 4, 6, 8\}$为非负偶数集合（取交挺好，避免了前导0），正则
