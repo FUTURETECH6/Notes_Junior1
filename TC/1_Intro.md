@@ -103,11 +103,13 @@ $2^{S}=$ set of all subset of $S$, $2^{S}=\{T \mid T \subseteq S\}$
 
 <img src="assets/什么意思哦.jpg" style="zoom:10%;" />：<img src="assets/image-20201011204855315.png" style="zoom: 67%;" />
 
+---
+
 证明：<img src="assets/image-20201011204432785.png" style="zoom:67%;" />
 
 
 
-**Partial Order**
+**Partial Order** 
 
 * reflexive, antisymmetric, transitive
 * total order

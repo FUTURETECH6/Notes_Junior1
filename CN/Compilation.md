@@ -6,7 +6,37 @@ MPLS: MultiProtocol Label Switching
 
 
 
+Attacker increases the share of the reward by not broadcasting mined blocks to the network for some time and then releasing several blocks at once, making other miners lose their blocks.
 
+
+
+# Port
+
+FTP 21 TCP
+
+SSH 22 UDP
+
+telnet 23 TCP
+
+SMTP 25 TCP
+
+POP3 110 TCP
+
+HTTP 80 TCP
+
+DNS 53 UDP
+
+SNMP 161
+
+SOCKS 1080
+
+DHCP-S 67
+
+DHCP-C 68
+
+HTTPS 443 TCP
+
+TFTP 69 UDP
 
 # 考点
 
@@ -73,3 +103,7 @@ MPLS: MultiProtocol Label Switching
 
 
 8一般只有6分，考的基础，原理，对称非对称怎么回事，公私钥关系 
+
+
+
+![](https://img-blog.csdn.net/20170822224933262)

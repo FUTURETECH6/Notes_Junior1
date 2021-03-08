@@ -30,10 +30,10 @@ Imporvements
 
 * Head can both read and write, and move 1n both di­ rections
 * Tape has unbounded length.
-* $\bigsqcup$ is blank symbol. In practice, all but a finite number of tape squares are blank.
+* $\sqcup$ is blank symbol. In practice, all but a finite number of tape squares are blank.
 * $\rhd$是左端符
 
-
+    
 
 ## TM Formal Def
 
@@ -90,9 +90,9 @@ Example of TM conf:
 > 分别的含义
 >
 > 1. 改写符号但是不移动带头
-> 2. 将带头向左移一格，若正从(from)空格带向左移，则刚扫描的空格从格局里消失
+> 2. 将带头向左移一格，若正从(from)空格带（$\sqcup$）向左移，则刚扫描的空格从格局里消失（最右边不能有$\sqcup$）
 >     * <img src="assets/image-20201218160029521.png"  />
-> 3. 将带头向右移一格，若正移到(to)空格带上，则新的空格符出现在新的格局里作为新的被扫描符号
+> 3. 将带头向右移一格，若正移到(to)空带（$e$）上，则新的空格符出现在新的格局里作为新的被扫描符号
 >     * <img src="assets/image-20201218160113181.png"  />
 >
 > 
@@ -213,7 +213,7 @@ graph LR
 >     $M$ rejects $w$ if
 >     \\	$(s, \rhd\sqcup w)$ yields an rejecting configuration.
 > * Let $\Sigma_{0} \subseteq\left(\Sigma-\{\sqcup, \rhd\}\right.$ be a alphabet $-$ input alphabet of $M$.
-> * $M$ decides $L \subseteq \Sigma^{*}$ if $\forall w \in \Sigma^{*}$ the following is true:
+> * ==$M$ decides $L \subseteq \Sigma^{*}$ if $\forall w \in \Sigma^{*}$ the following is true:==
 >     1. 能停机
 >     2. 回答正确
 >         * $w \in L$ <u>iff</u> $M$ accepts $w$
@@ -231,7 +231,7 @@ graph LR
 > Definition: Let $M=(K, \Sigma, \delta, s, H)$ be a TM. Let $\Sigma_{0} \subseteq$ $\Sigma-\{\rhd, \sqcup\}$ be an alphabet and $w \in \Sigma_{0}^{*}$
 > - Suppose that $M$ halts on input $w$ and that $(s, \triangleright \underline{\sqcup} w) \vdash_{M}^{*}(h, \triangleright\underline{\sqcup} y)$ for some $y \in \Sigma_{0}^{*} .$ Then $y=M(w)$ is called the output of $M$ on input $w$
 > - Let $f$ be a function $f: \Sigma_{0}^{*} \rightarrow \Sigma_{0}^{*} . M$ computes function $f$ if, $\forall w \in \Sigma_{0}^{*}, M(w)=f(w)$
-> - A function $f$ is recursive if $\exists$ a TM $M$ computes $f$.
+> - ==A function $f$ is recursive if $\exists$ a TM $M$ computes $f$.==
 
 
 
@@ -240,7 +240,7 @@ graph LR
 > Definition: Let $M=(K, \Sigma, \delta, s,\{h\})$ is a TM.
 >
 > * $0,1, ; \in \Sigma$ and let $f: \mathbb{N}^{k} \rightarrow \mathbb{N}$ be any function for some $k \geq 1 . M$ computes $f$ if, $\forall w_{1}, \cdots, w_{k} \in 0 \cup 1\{0,1\}^{*}$, $\operatorname{num}\left(M\left(w_{1} ; \cdots ; w_{k}\right)\right)=f\left(\operatorname{num}\left(w_{1}\right), \cdots, \operatorname{num}\left(w_{k}\right)\right)$
-> * $f: \mathbb{N}^{k} \rightarrow \mathbb{N}$ is recursive if $\exists$ a TM $M$ computes $f$.
+> * ==$f: \mathbb{N}^{k} \rightarrow \mathbb{N}$ is recursive if $\exists$ a TM $M$ computes $f$.==
 >
 > 
 >
@@ -264,12 +264,13 @@ graph LR
 >     \\	for $\forall w \in \Sigma^{*}$,
 >     \\		the following is true:
 >     \\			$w \in L \Leftrightarrow M$ halts on input $w$.
-> - A language $L$ is <u>recursively enumerable</u> iff $\exists$ a TM $M$ that <u>semidecides</u> $L$.
+> - ==A language $L$ is <u>recursively enumerable</u> iff $\exists$ a TM $M$ that <u>semidecides</u> $L$.==
 >
 > 
 >
 > **Remark**:
 >
+> * ==<font color="magenta">与decide不同：decide要求M接受L的str，拒绝不属于L的str；而semi-decide只要求M接受L的str，至于不属于L的str，拒绝或loop都行</font>==
 > * $L$ be a recursively enumerable:
 >     * $w \in L \Leftrightarrow M$ halts.
 >     * $w \notin L \Leftrightarrow M$ never enter the halting state.

@@ -115,9 +115,8 @@ DV算法存在的问题：对于好消息的反应很迅速，但是对于坏消
         * Sequence number <u>increases</u> for each new pkt sent.
         * Routers keeps track of all the `(source router, sequence)` pairs they see.
         * If pkt is new, forward to lines except the incoming one
-        * Else (duplicate), discard.
-        * If sequence number is lower than highest one seen so
-            far, reject as obsolete. (说明是旧的包)
+            * Else (duplicate), discard.
+        * If sequence number is lower than highest one seen so far, reject as obsolete. (说明是旧的包)
 5. 计算到每个其他路由器的最短路径
     * 第四步每个路由器已经获得了完整的网络拓扑结构，只要使用Dij就可以找出自己到其他所有路由器的最短路。
 

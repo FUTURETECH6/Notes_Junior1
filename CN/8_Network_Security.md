@@ -46,7 +46,7 @@ E和D都是以P、K为参数的数学函数，且D~K~(E~K~(P)) == D~K~(C) == P
 
 ## Transposition Cipher
 
-替代密码
+换位密码
 
 对字母重排序，但<u>并不伪装明文</u>
 
@@ -95,7 +95,13 @@ The Advanced Encryption Standard
 
 # Public key algorithms
 
+## RSA
+
 # Digital signatures
+
+## SHA
+
+Secure Hash Algorithm
 
 # Management of public keys
 

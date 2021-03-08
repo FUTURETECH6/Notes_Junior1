@@ -3,7 +3,7 @@
 # The Transport Service ( 传输服务
 
 * **Transport layer services** (传输服务) 
-    * To provide efficient, reliable, and cost effective service to its users,                                                                                                                                                     processes in the application layer.
+    * To provide efficient, reliable, and cost effective service to its users, processes in the application layer.
     * To make use of the services provided by the network layer.
 * **The transport entity** (传输实体): the hardware and/or software within the transport layer that does the work. Its positions:
     * in the OS kernel, in a separate user process, in a library package bound to network applications, or
@@ -39,7 +39,7 @@
 
 ![](assets/image-20201202112620171.png)
 
-# Elements of Transport Protocols
+# ~~Elements of Transport Protocols~~
 
 Transport protocol and data link protocol
 
@@ -150,7 +150,7 @@ Flow Ctrl and buffering
 
 ## Crash Recovery
 
-# Congestion Control
+# ~~Congestion Control~~
 
 ## Desirable Bandwidth Allocation
 
@@ -230,8 +230,7 @@ User Datagram Protocol 用户数据报协议
 
 **7)UDP是面向报文的。**
 
-- 发送方UDP对`应用层交下来的报文`，在添加首部后就向下交付给IP层，
-    `既不合并，也不拆分`，而是保留这些报文的边界;
+- 发送方UDP对`应用层交下来的报文`，在添加首部后就向下交付给IP层，`既不合并，也不拆分`，而是保留这些报文的边界;
 - 接收方UDP对IP层交上来UDP用户数据报，在去除首部后就原封不动地交付给上层应用进程，一次交付一个完整的报文。
 - 因此`报文不可分割，是UDP数据报处理的最小单位`。
 
@@ -365,7 +364,7 @@ The steps in making an RPC
     15. `选项字段`。长度可变。TCP最初只规定了一种选项，即最大报文段长度(Maximum SegmentSize，MSS)。MSS是TCP报文段中的数据字段的最大长度。窗口扩大、时间戳、选择确认
     16. `填充字段`。这是为了使整个首部长度是4B的整数倍。填充0.
 
-## TCP Con
+## TCP Com
 
 - TCP是面向连接的协议，因此每个TCP连接都有三个阶段:`连接建立、数据传送和连接释放`。
 - `TCP连接的管理就是使运输连接的建立和释放都能正常进行`。
@@ -380,7 +379,7 @@ The steps in making an RPC
 
 ![在这里插入图片描述](assets/20200414175430736.png)
 
-### Con Est: 3HS
+### Com Est: 3HS
 
 - seq为序号字段，标明本次报文段数据部分的第一个字节的序号
 - ack是`确认号字段`，告诉对方我接下来应该接收的数据是从字节序号ack开始的数据
@@ -401,7 +400,7 @@ The steps in making an RPC
 
 ![在这里插入图片描述](assets/20200414222617352.png)
 
-### Con Rel: 4HS
+### Com Rel: 4HS
 
 - 天下没有不散的筵席，TCP同样如此。参与TCP连接的两个进程中的任何- 一个都能终止该连接。TCP连接释放的过程通常称为四次握手
 - ![在这里插入图片描述](assets/2020041422283189.png)
