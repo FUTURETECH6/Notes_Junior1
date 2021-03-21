@@ -106,7 +106,7 @@ diagonal(diagonal) --> Uncertain State
 **Remark**:
 
 * *H* is the formalized version of the halting problem
-* *H* is recursively enumerable
+* ==*H* is recursively enumerable==
     * because the universal TM semidecides *H(L(U) = H)*
 
 
@@ -130,7 +130,7 @@ The class of recursively enumerable languages is not closed under complement.
 
 * Any algorithm can be turned into a TM that halts on all inputs.
 * **<u>Problems</u>** for which <u>no algorithms exist</u> are called <u>undecidable</u> or <u>unsolvable</u>
-* *H* is not recursive.
+* ==*H* is not recursive.==
     * The most famous undecidable problem is called the halting problem for TM.
 
 ## Reduction
@@ -147,7 +147,7 @@ The class of recursively enumerable languages is not closed under complement.
 >
 > **Remark**:
 >
-> * 注意规约的方向是从 已知非递归 到 未知非递归
+> * ==注意规约的方向是从 已知非递归 到 未知非递归==
 > * If there is a reduction of $L_{1}$ to $L_{2},$ then
 >     * if $L_{2}$ is decidable, then so is $L_{1}$;
 >     * if $L_{1}$ is undecidable, then $\mathrm{so}$ is $L_{2}$.
@@ -167,7 +167,7 @@ The class of recursively enumerable languages is not closed under complement.
 
 # Properties of Recursive Language
 
-**Theorem**: $L$ is recursive iff $L$ and $\overline L$ are both regex
+==**Theorem**: $L$ is recursive iff $L$ and $\overline L$ are both recursive enumerable==
 
 > Proof:
 > - $\Longrightarrow$
@@ -234,6 +234,8 @@ Example:
 **Theorem**: If $S$ is a class of recursively enumerabale languages such that $\mathscr{I}(S)$ is <u>neither empty nor the set of all indices</u>(非空真子集), then $\mathscr{I}(S)$ is undecidable
 
 i.e. almost all questions 《of the form "Here is a TM *M*; Does *M* halt on this kind of input?"》 are undecidable.
+
+![image-20210314201753313](assets/image-20210314201753313.png)
 
 e. g.
 

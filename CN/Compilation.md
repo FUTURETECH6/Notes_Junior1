@@ -8,23 +8,37 @@ MPLS: MultiProtocol Label Switching
 
 Attacker increases the share of the reward by not broadcasting mined blocks to the network for some time and then releasing several blocks at once, making other miners lose their blocks.
 
+# Layer
+
+https://en.wikipedia.org/wiki/Template:IPstack
+
+| Layer       | Protocol                                                     |
+| ----------- | ------------------------------------------------------------ |
+| Application | RIP(UDP), BGP(<u>TCP</u>), DHCP(IP), RPC(U&T), DNS(UDP), RTP(UDP), NTP(UDP), SNMP(UDP) |
+| Transport   | TPC, UDP, TLS/SSL                                            |
+| Network     | OSPF(IP), ARP, ICMP(IP), IPsec, IPv4/IPv6                    |
+| Datalink    | 802.3, 802.11, TokenRing, PPP, HDLC, L2TP                    |
+| Physical    | 802.3, 802.11                                                |
+
 
 
 # Port
 
 FTP 21 TCP
 
-SSH 22 UDP
+<u>SSH 22 UDP</u>
 
 telnet 23 TCP
 
 SMTP 25 TCP
 
-POP3 110 TCP
+<u>DNS 53 UDP</u>
+
+<u>TFTP 69 UDP</u>
 
 HTTP 80 TCP
 
-DNS 53 UDP
+POP3 110 TCP
 
 SNMP 161
 
@@ -35,8 +49,6 @@ DHCP-S 67
 DHCP-C 68
 
 HTTPS 443 TCP
-
-TFTP 69 UDP
 
 # 考点
 

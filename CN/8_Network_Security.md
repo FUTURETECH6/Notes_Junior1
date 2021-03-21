@@ -89,11 +89,19 @@ E和D都是以P、K为参数的数学函数，且D~K~(E~K~(P)) == D~K~(C) == P
 
 The Data Encryption Standard
 
+56 key
+
 ## AES
 
 The Advanced Encryption Standard
 
+128, 192, 256 key
+
+
+
 # Public key algorithms
+
+你只要想：既然是加密，那肯定是不希望别人知道我的消息，所以只有我才能解密，所以可得出**公钥负责加密，私钥负责解密**；同理，既然是签名，那肯定是不希望有人冒充我发消息，只有我才能发布这个签名，所以可得出**私钥负责签名，公钥负责验证**。
 
 ## RSA
 

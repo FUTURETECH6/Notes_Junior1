@@ -191,7 +191,7 @@ $D_1, D_2, D_3$ are similar.
 
 ## Ambiguity
 
-Ambiguity是对CFG的限定词，表示a grammar in which some word has two parse trees.
+Ambiguity是对CFG的限定词，表示a grammar in which some word has two parse trees（且<u>都是以lefemotst derivation作比较</u>）.
 
 Example: Consider the CFG $G^{\prime}=(V, \Sigma, R, S)$ where
 $$
@@ -207,7 +207,7 @@ $$
 ```mermaid
 graph TB
 
-0(E)-->1(F)-->2(id)
+0(E)-->1(E)-->2(id)
 0-->3(+)
 0-->4(T)-->5(E)-->6(id)
 4-->7(*)
@@ -222,7 +222,7 @@ graph TB
 
 # Pushdown Automata
 
-Motivation: 正则语言都是CFL（真子集），所以不是每一个CFL都能呗FA识别，所以需要一种能够识别任意CFL的机器，即PDA。
+Motivation: 正则语言都是CFL（真子集），所以不是每一个CFL都能被FA识别，所以需要一种能够识别任意CFL的机器，即PDA。
 
 例如对于$\{ww^R: w \in \{a, b\}^*\}$，显然不是正则，但是是CF的，只需要加一个栈每次读一个w中字符push一个，之后w^R^中字符再取一个出来比较（甚至不需要支持随机访问的存储器，只要能访问栈顶的就行）
 
@@ -302,7 +302,7 @@ Theroem: The class of languages accepted by PDA is exactly the class of CFL
 
 **Lemma**: Each Context-Free language is accepted by some PDA.
 
-Proof: To build the $\operatorname{PDA} M$ for CFG $G=(V, \Sigma, R, S)$ such that 
+Proof: To build the PDA $M$ for CFG $G=(V, \Sigma, R, S)$ such that 
 
 $L(M)=L(G)$
 
@@ -320,6 +320,8 @@ Define PDA $M=(K'=\{p, q\}, \Sigma, \Gamma'=V, \Delta', s=p, F=\{q\})$
 1) $((p, e, e),(q, S))$
 2) $((q, e, A),(q, x))$ for each rule $A \rightarrow x \in R$
 3) $((q, a, a),(q, e)), \forall a \in \Sigma$.
+
+==12步在stack中构造出字符串，3用输入带的字符串把stack的字符串消耗掉==
 
 See example [here](#Ex.3.4.1)
 
@@ -454,13 +456,13 @@ Solution:
 
 
 
-> **Theorem**: The CFL are **not closed** under <u>intersection</u> or <u>complementation</u>
+> ==**Theorem**: The CFL are **not closed** under <u>intersection</u> or <u>complementation</u>==
 
 # Alg for CFG
 
 > **Theorem**
 >
-> * There is a polynomial algorithm which, given a CFG, constructs an  equivalent PDA.
+> * There is a polynomial algorithm which, given a CFG, constructs an equivalent PDA.
 > * There is a polynomial algorithm which, given a PDA, constrcuts an equivalent CFG.
 > * There is a polynomial algorithm which, given a CFG and a string $x$, decides whether $x \in L(G)$.
 > 

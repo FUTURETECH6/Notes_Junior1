@@ -75,6 +75,8 @@ $L_2 = \{w \in \{a, b\}^*: w\text{ contains three consecutive }b\text{'s}\}.$
 
 <img src="assets/image-20201024164036785.png" style="zoom:50%;" />
 
+==DFA需要通过进入停滞状态还是halt状态来判断是否接受一个字符串，因此所有情况都要考虑（即deterministic的含义==
+
 # NFA
 
 ## NFA Def
@@ -112,6 +114,10 @@ DFA $\subseteq$ NFA
 **Example**: Consider the language $L  =  (ab \cup aba)^*$ which is accepted by the DFA and NFA: <img src="assets/image-20201030100417149.png" style="zoom: 80%;" />
 
 ### NFA/DFA Equivalence
+
+==Regex 2 DFA看编译原理的笔记==
+
+
 
 Definition: Two FA M~1~ and M~2~ (deterministic or non deterministic) are equivalent iff L(M~1~) = L(M~2~). (L(M)表示M接受的语言)
 
@@ -173,9 +179,9 @@ To construct an equivalent DFA $M^{\prime}=\left(K^{\prime}, \Sigma, \delta, s^{
 * $|K|=5 \Rightarrow\left|K^{\prime}\right|=2^{5}=32$
     * Only a few of these states will be relevant to the operation of $\mathrm{M}$.
 * $s^{\prime}=E\left(q_{0}\right)=\left\{q_{0}, q_{1}, q_{2}, q_{3}\right\}$
-* $\left(q_{1}, a, q_{0}\right),\left(q_{1}, a, q_{4}\right),\left(q_{3}, a, q_{4}\right)$ are all the transitions for some $q \in s'$
+* ==$\left(q_{1}, a, q_{0}\right),\left(q_{1}, a, q_{4}\right),\left(q_{3}, a, q_{4}\right), (q_0, b, q_2), (q_2, b, q_4)$ are all the transitions for some $q \in s'$==
 * $\delta\left(s^{\prime}, a\right)=E\left(q_{0}\right) \cup E\left(q_{4}\right)=\left\{q_{0}, q_{1}, q_{2}, q_{3}, q_{4}\right\}$
-* $\delta(s, b)=E\left(q_{2}\right) \cup E\left(q_{4}\right)=\left\{q_{2}, q_{3}, q_{4}\right\}$
+* $\delta(s', b)=E\left(q_{2}\right) \cup E\left(q_{4}\right)=\left\{q_{2}, q_{3}, q_{4}\right\}$
 * $\delta\left(\left\{q_{0}, q_{1}, q_{2}, q_{3}, q_{4}\right\}, a\right)=\left\{q_{0}, q_{1}, q_{2}, q_{3}, q_{4}\right\}$
 * $\delta\left(\left\{q_{0}, q_{1}, q_{2}, q_{3}, q_{4}\right\}, b\right)=\left\{q_{2}, q_{3}, q_{4}\right\}$
 * $\delta\left(\left\{q_{2}, q_{3}, q_{4}\right\}, a\right)=\left\{q_{3}, q_{4}\right\}$
@@ -199,6 +205,16 @@ To construct an equivalent DFA $M^{\prime}=\left(K^{\prime}, \Sigma, \delta, s^{
 (e) Intersection, $L(M_1) \cap L(M_2) = \Sigma^* - (\Sigma^* - L(M_1)) \cup (\Sigma^* - L(M_2))$
 
 （abc的封闭性是regex的定义本来就有的，de的是另外的）
+
+
+
+* 正则语言的==交、并、差、补==运算得到的语言仍然是正则语言；
+* 两个正则语言==[连接](https://zh.wikipedia.org/wiki/串接)==（把第一个语言的所有字符串同第二个语言的所有字符串连接起来）后得到的语言仍然是正则语言；
+* 正则语言[闭包](https://zh.wikipedia.org/wiki/Kleene星号)运算后得到的语言仍然是正则语言；
+* 正则语言的每个字符串==转置==后得到的语言仍然是正则语言；
+* 正则语言被任意语言的[字符串商](https://zh.wikipedia.org/wiki/字符串商)（左商或右商）后得到的语言仍然是正则语言。
+* 正则语言[字符串代换](https://zh.wikipedia.org/wiki/字符串代换)后得到的语言仍然是正则语言。
+* 与正则语言[字符串同态](https://zh.wikipedia.org/wiki/字符串同态)或逆同态的语言仍然是正则语言。
 
 
 

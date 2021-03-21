@@ -12,15 +12,10 @@ connection：能发送状态信息，上一个和下一个包之间的关系，�
 
 3 types
 
-* Unacknowledged connectionless service ( 无确认的无连
-    接服务
-    * No connection is established beforehand or released
-        afterward. 快
-    * The source sends frames; the destination does not
-        acknowledge. No attempt is made to recover any lost
-        frames in the data link layer.
-    * Appropriate when the error rate is very low.
-        Appropriate for real time traffic ( Ethernet
+* Unacknowledged connectionless service ( 无确认的无连接服务
+    * No connection is established beforehand or released afterward. 快
+    * The source sends frames; the destination does not acknowledge. No attempt is made to recover any lost frames in the data link layer.
+    * Appropriate when the error rate is very low. Appropriate for real time traffic ( Ethernet
 * Acknowledged connectionless service (有确认的无连接服务)
     * No connection
     * Each frame sent is acknowledged.

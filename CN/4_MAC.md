@@ -116,6 +116,10 @@ How long will it take to detect collisions?
 * The time for transmitting from one end to the other end of the cable?
 * In the worst case, a station cannot be sure that it has seized the channel until it has transmitted for 2τ without hearing a collision. Here τ is the time for a signal to propagate between the two farthest stations. 
 
+## CSMA/CA
+
+[Binary Exponential Backoff Algorithm](#Binary Exponential Backoff Algorithm)
+
 ## Collision free protocol
 
 ### bitmap
@@ -232,7 +236,7 @@ T/L <= 0x600 (1536): length; otherwise, type
 * Time is divided into discrete slots (51.2us).
 * After i-th collisions, each station picks either 0, 1, 2, …, 2^i^−1 at random and waits that number of slot times.
     * After 10th collisions, the randomization interval is **frozen** at a maximum of 1023 slots. (避免时间槽太多了延时太大)
-    * After 16 consecutive collisions, the controller **reports failure** back to the computer. (为了保证limited contention.
+    * After 16 consecutive collisions, the controller **reports failure** back to the computer. (为了保证limited contention)
 
 ## Type
 

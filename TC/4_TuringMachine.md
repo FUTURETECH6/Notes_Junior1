@@ -55,7 +55,7 @@ Imporvements
 
 ### TM Configuration
 
-> **Definition**: A configuration of a TM $M=(K, \Sigma, \delta, s, H)$ is a member of $K \times \rhd \Sigma^{*} \times\left(\Sigma^{*}\left(\Sigma-\{\sqcup\}\right) \cup\{e\}\right)$. 二号位是从left end到所在状态的所有symbol，三号位是所在状态一直到最后一个非$\sqcup$字符
+> **Definition**: A configuration of a TM $M=(K, \Sigma, \delta, s, H)$ is a member of $K \times \rhd \Sigma^{*} \times\left(\Sigma^{*}\left(\Sigma-\{\sqcup\}\right) \cup\{e\}\right)$. 二号位是从left end到所在状态的所有symbol，三号位是所在字符的下一个字符一直到最后一个非$\sqcup$字符
 >
 > Configuration $(q, \triangleright x, y)$: <img src="assets/image-20201218105859373.png" style="zoom:33%;" />
 >
@@ -183,7 +183,7 @@ graph LR
 * w自己不含空格，而其他部分全是空格（左方要留出一个放带头），则经过复制机后带上会有$w\sqcup w$，其他部分都是空格
 * <img src="assets/image-20201218191711443.png" style="zoom: 67%;" />
     * a是w中的符号
-    * 为什么$R_{\sqcup}$和$L_{\sqcup}$分别都要进行两次>？因为复制后w和w之间要有一个空格，一次的话正好移到空格上，所以要多一次移到另外一个w的尾
+    * 为什么$R_{\sqcup}$和$L_{\sqcup}$分别都要进行两次>？因为复制后w和w之间要有一个空格，一次的话正好移到空格上，所以要多一次移到第二个w的尾和第一个w的“当前位置”（已被变成blank）
 
 **Left-shifting machine**
 
@@ -270,7 +270,7 @@ graph LR
 >
 > **Remark**:
 >
-> * ==<font color="magenta">与decide不同：decide要求M接受L的str，拒绝不属于L的str；而semi-decide只要求M接受L的str，至于不属于L的str，拒绝或loop都行</font>==
+> * ==<font color="magenta">与decide不同：decide要求M接受L的str，拒绝不属于L的str；而semi-decide只要求M接受L的str，至于不属于L的str，拒绝或loop都行（即所谓的"fails to halt"）</font>==
 > * $L$ be a recursively enumerable:
 >     * $w \in L \Leftrightarrow M$ halts.
 >     * $w \notin L \Leftrightarrow M$ never enter the halting state.
@@ -547,7 +547,7 @@ Turing_Machine --Accepts---> Recursively_Enumerable_Language
 >
 > 
 >
-> **Define**: Primitive Recursive Functions 是所有基本函数和基本函数通过人一次相继应用合成和递归定义所获得的函数。
+> **Define**: Primitive Recursive Functions 是所有基本函数和基本函数通过任意次相继应用合成和递归定义所获得的函数。
 
 **Example**
 
@@ -556,11 +556,13 @@ Turing_Machine --Accepts---> Recursively_Enumerable_Language
     * plus(m, 0) = m
     * plus(m, n+1) = succ(plus(m, n))
 3. mult(m, n)
-    * mult(m, n) = zero(m)
+    * mult(m, 0) = zero(m)
     * mult(m, n+1) = plus(m, mult(m, n))
 4. exp(m, n) = m^n^
     * exp(m, 0) = succ(zero(m))
     * exp(m, n+1) = mult(m, exp(m, n))
+
+
 
 **Example.2**
 
@@ -569,9 +571,11 @@ All const func and sign func are primitive recursive
 * f(n~1~, ..., n~k~) = succ(...succ(zero(n~1~, ..., n~k~)))
 * sgn(0) = 0, sgn(n+1) = 1（那负数怎么办？
 
+
+
 **Example.3**
 
-m~n = max{m-n, 0} is primitive recursive
+==$m \sim n = \max\{m-n, 0\}$ is primitive recursive==
 
 Sol:
 
@@ -582,7 +586,7 @@ Sol:
 
 ## Primitive Recursive Predicate
 
-> Definition: A primitive recursive predicate be a primitive recursive function that only takes values 0 and 1.
+> Definition: A **primitive recursive predicate** be a primitive recursive function that only takes values 0 and 1.
 
 
 

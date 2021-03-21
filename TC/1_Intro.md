@@ -290,7 +290,7 @@ Example: $L=\{a b, a a b b, a a a b b b, \cdots\}=\left\{a^{n} b^{n} \mid n \geq
 
 
 
-**Theorem**: <u>If $\sum$ is a finite alphabet, then $\sum^{*}$ is countably infinite set.</u>
+==**Theorem**: <u>If $\sum$ is a finite alphabet, then $\sum^{*}$ is countably infinite set.</u>==
 
 Proof: Construct a bijection $f: \mathbb{N} \rightarrow \sum^{*}$.
 Fix some ordering of the alphabet, say $\sum=\left\{a_{1}, a_{2}, \cdots, a_{n}\right\}$
@@ -348,7 +348,7 @@ Hint: $L_{1} \subseteq L_{2} \Rightarrow L_{1}^{*} \subseteq L_{2}^{*} \quad\{0,
 
 **==Remark==**:
 
-1) The use of $\sum^{*}$ to denote th set of all strings over $\sum$ is consistent with the notation for the Kleene star of $\sum$.
+1) The use of $\sum^{*}$ to denote the set of all strings over $\sum$ is consistent with the notation for the Kleene star of $\sum$.
 2) ==$\emptyset \ne \{e\}, \emptyset^* = \{e\}$==
 3) $L^{+}=L L^{*}$
 4) For any language $L,\left(L^{*}\right)^{*}=L^{*} ; L \emptyset=\emptyset L=\emptyset$
@@ -373,7 +373,7 @@ Hint: $L_{1} \subseteq L_{2} \Rightarrow L_{1}^{*} \subseteq L_{2}^{*} \quad\{0,
 > 3) Nothing is regular expression unless it follows from 1 ) through 2 ).
 > Example: $a^{*} b^{*}, a^{*} \cup b^{*}, a(a^{*} \cup b^{*}), (a^{*} \cup b^{*}) a(a^{*} \cup b^{*}), aaaaa^*$
 >
-> 定义：包括空集$\empty$和单元集${a}$在union、concatenation和Kleene star下封闭的最小语言类
+> 定义：==包括空集$\empty$和单元集${a}$在union、concatenation和Kleene star下封闭的最小语言类==
 
 **Example** Let $L=\left\{w \in\{0,1\}^{*}: w\right.$ has two or three occurrences of $1,$ the first and second of which are not consecutive $\}$.
 
@@ -434,6 +434,5 @@ Example: What language is represented by $\left(c^{\star}\left(a \cup\left(b c^{
 2. The class of regular languages over an alphabet $\sum$ is defined to consist of all languages $L$ such that $L=L(a)$ for some regular expression a over $\sum$. i.e. the class of regular languages over an alphabet $\sum$ is precisely the closure of the set of languages $\{\{\sigma\}: \sigma \in \Sigma\} \cup\{\emptyset\}$
 3. he regular expressions are an inadequate specification method in general. For example, $\left\{0^{n} 1^{n}: n \geq 0\right\}$ cannot be described by regular expressions.
 4. Two important and useful means of representing languages:
-    * language recognition device
-        to answer questions of the form "Is string $w$ a member of $L ?$
+    * language recognition device to answer questions of the form "Is string $w$ a member of $L ?$
     * language generators
