@@ -101,8 +101,8 @@ A data set is shared among a number of concurrent processes
 
 The readers-writers problem:
 
-* allow multiple readers to read at the same time (shared access)
-* only one single writer can access the shared data (exclusive access)
+* <u>allow multiple readers to read at the same time (shared access)</u>
+* <u>only one single writer can access the shared data (exclusive access)</u>
 
 
 
@@ -121,6 +121,7 @@ The readers-writers problem:
 Solution:
 
 * semaphore `mutex` initialized to 1
+    * Only for确保对后两个的修改的原子性
 * semaphore `wrt` initialized to 1
     * 给writer作为互斥信号量，仅会被第一个进入和最后一个退出CS的readers所使用
     * 如果被reader加到wait里，writer就得一直等到reader signal了为止
