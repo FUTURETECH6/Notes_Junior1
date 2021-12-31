@@ -34,7 +34,7 @@ Closed under: K-star, concatenation, union, intersection(with regex) 交并
 
 **Theorem**: The CFL are ==**not closed**== under <u>intersection</u> or <u>complementation</u>
 
- 
+
 
 w=w^R^
 

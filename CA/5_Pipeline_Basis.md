@@ -164,7 +164,7 @@ sub $2, $6, $14
 
 – An instruction that is control dependent on its branch cannot be moved *before* the branch so that its execution is *no longer controlled* by the branch.
 
- 
+
 
 – An instruction that is not control dependent on its branch cannot be moved *after* the branch so that its execution *is controlled* by the branch.
 

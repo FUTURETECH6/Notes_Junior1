@@ -495,9 +495,9 @@ Generated HTML
 
 - 其中，`“方法”是对所请求对象进行的操作`，这些方法实际上也就是一些命令。HTTP请求报文中常用的几个方法:
     ![-](assets/20200503140408270.png)![在这里插入图片描述](assets/2020050313581794.png)
-    
+
     ![](assets/image-20210102141057506.png)
-    
+
     - The **GET** method requests the server to send the page.
     - The **HEAD** method just asks for the message header, without the actual page. This method can be used to collect information for indexing purposes, or just to test a URL for validity.
     - The **POST** method is used when forms are submitted. Both it and GET are also used for SOAP Web services.
@@ -510,12 +510,12 @@ Generated HTML
     - The **TRACE** method is for debugging. It instructs the server to send back the request.
     - The **CONNECT** method lets a user make a connection to a Web server through an intermediate device, such as a Web cache.
     - The **OPTIONS** method provides a way for the client to query the server for a page and obtain the methods and headers that can be used with that page.
-    
+
 - `首部行`:用来说明浏览器、服务器或报文主体的一些信息。
     首部可有几行，但可不使用。
     在每个首部行都有首部字段名和它的值，每行在结束的地方都要有“回车”和"换行”。
     整个首部结束时，还有一空行将首部行和后面的实体主体分开。
-    
+
 - `实体主体`:在请求报文中一般不用这个字段，而在响应报文中也可能没有这个字段。
 
 #### Msg Header

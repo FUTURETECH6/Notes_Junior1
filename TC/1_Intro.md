@@ -263,7 +263,7 @@ e.g. $\sum_{1}=\{0,1\}, \sum_{2}=\{a, b, \cdots, x, y, z\}$
 - Concatenation: $x \circ y$ or $x y$
   - substring, suffix, prefix
   - Example: $\forall w, w e=e w=w$
-  
+
 - **String exponentiation**
 
     - >$w^{0}=e,$ the empty string

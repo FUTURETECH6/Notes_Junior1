@@ -33,7 +33,7 @@ Imporvements
 * $\sqcup$ is blank symbol. In practice, all but a finite number of tape squares are blank.
 * $\rhd$是左端符
 
-    
+
 
 ## TM Formal Def
 

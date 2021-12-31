@@ -314,14 +314,14 @@ void unlock() {
 ==用于多资源的共享，而不仅是0和1。<u>value表示可用资源的数量，不能为负。</u>（用另外的方式实现可以为负，那表示的意义就是多少个进程正在等待这个资源）==
 
 * Semaphore S is an integer variable
-  
+
     * e.g., to <u>represent how many units of a particular resource is available</u>
-    
+
 * It can <u>only be updated with two atomic operations: `wait` and `signal`</u>
     * spin lock can be used to guarantee atomicity of wait and signal
-    
+
     * a simple implementation with busy wait can be: 
-    
+
         * ```c
             wait(type &s) {
                 while(s <= 0)
@@ -329,13 +329,13 @@ void unlock() {
                 s--;
             }
             ```
-    
+
         * ```c
             signal(type &s) {
                 s++;
             }
             ```
-    
+
 * 并不能保护共享资源，只是控制几个人能进入指定代码区域（如果要在代码区域内进行资源保护还是得通过锁来实现，或者将信号量的值设为1，此时就相当于一个锁
 
 * 信号量在不同类型的进程之间进行同步

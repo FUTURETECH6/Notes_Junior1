@@ -138,7 +138,7 @@ An analogy with programming
             * b>a切换：红移或者在两个基站中间区域导致的频繁切换，5G更严重(基站更密集)
 
     * RFID
-    
+
         * sensor network：野外将传感器组网(如果单个传感器直接发得很远非常耗电)
 
 **特点**

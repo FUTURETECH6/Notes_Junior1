@@ -218,13 +218,13 @@ Each network imposes some <u>maximum size on its packets</u>. These limits have 
         * sol：每个分段中提供一个计数段或一个数据包结束标志位
 * (b) Nontransparent fragmentation.
     * 一旦数据包在开始的时候被分段，则后续的网络都将每个段看作一个独立的数据包(即不会重组)
-    
+
     * To define an elementary fragment size small enough that the <u>elementary fragment can pass through every network</u>.
-    
+
     * When a packet is fragmented, all the pieces are multiple of the elementary fragment size.
-    
+
     * 优点：路由器所作工作少
-    
+
     * <div align="left"><img src="assets/image-20201124114731532.png" style="zoom:67%;" /></div>
         * a：原始数据包，10B
         * b：经过一个max=8的网络后的分段加头
